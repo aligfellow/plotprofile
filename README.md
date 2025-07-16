@@ -4,7 +4,7 @@ notebook to plot reaction profiles
 - label placement needs sorted
 - add option for straight line connections
 - RDkit structures...??
-*UPDATE THE README AND CODE - CHECK THE CLI*
+- **UPDATE THE README AND CODE - CHECK THE CLI**
 # Reaction Profile Plotter
 
 Plot reaction profiles from energy data using smooth Bezier curves with customizable styling.
