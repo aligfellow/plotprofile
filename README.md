@@ -45,7 +45,7 @@ plot_profile(energy_sets, filename="reaction_profile", labels=True, point_type="
 
 ### CLI
 ```bash
-python -m plotProfile --input example_input.json --labels --format png
+python -m plotProfile --input examples/input.json --labels --format png
 ```
 
 
