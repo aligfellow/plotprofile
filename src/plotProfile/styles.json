@@ -1,0 +1,36 @@
+{
+    "default": {
+      "figsize": [5.5,5],
+      "point_type": "hollow",
+      "curviness": 0.42,
+      "desaturate": true,
+      "desaturate_factor": 1.2,
+      "dashed": [],
+      "labels": true,
+      "show_legend": true,
+      "line_width": 2.5,
+      "bar_width": 3.0,
+      "marker_size": 6,
+      "font_size": 10,
+      "axis_linewidth": 2.0,
+      "axes": false,
+      "colors": ["darkcyan", "maroon", "midnightblue", "darkmagenta", "darkgreen", "saddlebrown"],
+      "segment_annotations": [],
+      "arrow_color": "xkcd:dark grey",
+      "annotation_color": "maroon"
+    },
+    "presentation": {
+      "figsize": [8, 5],
+      "font_size": 14,
+      "marker_size": 8,
+      "line_width": 3.0,
+      "bar_width": 3.5,
+      "axes": "box"
+    },
+    "debug": {
+      "axes": "both",
+      "show_legend": true,
+      "labels": false
+    }
+  }
+
