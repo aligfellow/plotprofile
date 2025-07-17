@@ -16,7 +16,7 @@ pip install .
 
 ## Python Usage examples
 Use case for example: 
-```
+```python
 import plotProfile
 import numpy as np
 
