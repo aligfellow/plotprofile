@@ -2,12 +2,16 @@
 Python code for plotting reaction profiles with various style options
 
 ## Installation
+Local installation (may not respect the styles.json):
 ```bash
 git clone git@github.com:aligfellow/plotProfile.git
 cd plotProfile
 pip install .
 ```
-- *check the installation,* `pip install .` *seems to not respect the json locally*
+From pypi
+```bash
+pip install plotprofile
+```
 
 ## To Do
 - label placement is primitive and could be improved
