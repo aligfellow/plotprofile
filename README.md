@@ -30,7 +30,7 @@ annotations = {
     'Step 3': (5,6),
 }
 
-plotter = ReactionProfilePlotter(dashed=["off-cycle", "Pathway C"])
+plotter = ReactionProfilePlotter(dashed=["Pathway C"])
 plotter.plot(energy_sets, annotations=annotations)
 ```
 Pass in `annotations` for labelling of the reaction profile:
@@ -49,7 +49,7 @@ A variety of paremters can be tuned for the plotting, including:
 
 For example:
 ```python
-plotter = ReactionProfilePlotter(style="presentation", dashed=["off-cycle", "branching"], point_type='bar', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5)
+plotter = ReactionProfilePlotter(style="presentation", dashed=["Pathway B"], point_type='bar', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5)
 plotter.plot(energy_sets)
 ```
 Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines, larger font size:
@@ -58,14 +58,19 @@ Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines,
 
 For example:
 ```python
-plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["off-cycle", "branching"], point_type='dot', annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon'], energy='electronic', units='kj')
-plotter.plot(energy_sets, annotations=annotations)
+plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["Pathway C"], point_type='dot', annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon'], energy='electronic', units='kj')
+plotter.plot(energy_sets,annotations=annotations)
 ```
 Straight lines set in a style, which can also be done by passing in `curviness=0`:
 
 <img src="./images/profile3.png" height="300" alt="Example 3">
 
 See [examples/example.ipynb](examples/example.ipynb) for more explicit code
+
+### Further details
+- Secondary curves can begin from after the 1st point, just need to have a `None` entry in the list of energies
+- Spacing of energies can be altered by passing the same energy twice in a row
+  - this will place the point halfway between the two x indices
 
 ## CLI - to do...
 Currently untested - probably won't work for now
