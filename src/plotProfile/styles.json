@@ -17,7 +17,7 @@
       "font_style": "normal",
       "axis_linewidth": 2.0,
       "buffer_factor": 0.025,
-      "axes": false,
+      "axes": "box",
       "colors": ["darkcyan", "maroon", "midnightblue", "darkmagenta", "darkgreen", "saddlebrown"],
       "segment_annotations": [],
       "arrow_color": "xkcd:dark grey",
@@ -36,14 +36,11 @@
       "marker_size": 8,
       "line_width": 3.0,
       "bar_width": 3.5,
-      "axes": "box",
       "annotation_space": 0.12,
       "arrow_width": 2.5
     },
-    "debug": {
-      "axes": "both",
-      "show_legend": true,
-      "labels": false
+    "straight": {
+      "curviness": 0.0
     }
   }
 
