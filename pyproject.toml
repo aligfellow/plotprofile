@@ -1,5 +1,5 @@
 [project]
-name = "profile_plotter"
+name = "plotprofile"
 version = "1.0.0"
 description = "Plot reaction profiles with customizable curves and labels"
 authors = [{name = "Dr A Goodfellow"}]
