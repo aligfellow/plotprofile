@@ -85,7 +85,6 @@ class ReactionProfilePlotter:
         self.colors = style_dict.get("colors", 'viridis')
         self.arrow_color = style_dict["arrow_color"]
         self.annotation_color = style_dict["annotation_color"]
-        self.segment_annotations = style_dict["segment_annotations"]
         self.buffer_factor = style_dict.get("buffer_factor", 0.025)
         self.energy = style_dict.get("energy", "G")
         self.units = style_dict.get("units", "kcal")
@@ -144,7 +143,8 @@ class ReactionProfilePlotter:
         else:
             raise TypeError("`colors` must be a palette name (str), colormap object, or list of color codes.")
 
-    def plot(self, energy_dict, filename=None, file_format='png', dpi=600, include_keys=None):
+    def plot(self, energy_dict, filename=None, annotations=None, file_format='png', dpi=600, include_keys=None):
+        self.annotations = annotations
         if include_keys is not None:
             energy_dict = {k: v for k, v in energy_dict.items() if k in include_keys}
         labels = list(energy_dict.keys())
@@ -320,10 +320,10 @@ class ReactionProfilePlotter:
             ax.legend(handles[::-1], labels_[::-1], loc='best', prop=self.font_properties)
 
         # --- segment annotations with double-headed arrows
-        if self.segment_annotations:
+        if self.annotations:
             y_min, _ = ax.get_ylim()
             y_arrow = y_min - self.annotation_buffer * (max(all_energies) - min(all_energies))  # place below data
-            for label, (x_start, x_end) in self.segment_annotations.items():
+            for label, (x_start, x_end) in self.annotations.items():
                 
                 # Draw double-headed arrow
                 ax.annotate(
