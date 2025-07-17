@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import matplotlib.colors as mpc
 from matplotlib.path import Path 
+from matplotlib.lines import Line2D
+import seaborn as sns
 from scipy.signal import argrelextrema
 import numpy as np
 from itertools import cycle
@@ -77,7 +79,7 @@ class ReactionProfilePlotter:
         self.font_properties = self._get_font_properties(style_dict)
         self.axes = style_dict["axes"]
         self.axis_linewidth = style_dict["axis_linewidth"]
-        self.colors = style_dict["colors"]
+        self.colors = style_dict.get("colors", 'viridis')
         self.arrow_color = style_dict["arrow_color"]
         self.annotation_color = style_dict["annotation_color"]
         self.segment_annotations = style_dict["segment_annotations"]
@@ -95,6 +97,30 @@ class ReactionProfilePlotter:
             size=font_dict.get('font_size', 10),
         )
 
+    def _resolve_colors(self, setting, num_colors):
+        if isinstance(setting, str):
+            try:
+                return sns.color_palette(setting, num_colors)
+            except ValueError:
+                try:
+                    cmap = plt.get_cmap(setting)
+                    return [cmap(i / num_colors) for i in range(num_colors)]
+                except ValueError:
+                    raise ValueError(f"Invalid color palette name: '{setting}'")
+        
+        elif isinstance(setting, list):
+            if len(setting) < num_colors:
+                raise ValueError(
+                    f"Color list has only {len(setting)} colors but {num_colors} are needed. "
+                    f"Provide a longer list or use a colormap name like 'viridis'."
+                )
+            return setting[:num_colors]
+
+        elif hasattr(setting, "__call__"):  # matplotlib colormap object
+            return [setting(i / num_colors) for i in range(num_colors)]
+
+        else:
+            raise TypeError("`colors` must be a palette name (str), colormap object, or list of color codes.")
 
     def plot(self, energy_dict, filename=None, file_format='png', dpi=600, include_keys=None):
         if include_keys is not None:
@@ -112,16 +138,8 @@ class ReactionProfilePlotter:
         buffer_range = 1.0
 
         base_colors = self.colors
-        colors = (self.colors[:len(energy_sets)])[::-1]
-
-        if len(base_colors) < len(energy_sets):
-            num_needed = len(energy_sets) - len(base_colors)
-            fallback_cmap = plt.cm.get_cmap('Dark2')
-            fallback_colors = [fallback_cmap(i) for i in range(fallback_cmap.N)]
-            color_cycle = cycle(fallback_colors)
-            colors = list(base_colors) + [next(color_cycle) for _ in range(len(energy_sets) - len(base_colors))]
-
-
+        colors = self._resolve_colors(base_colors, len(energy_sets))
+        colors = colors[::-1]
 
         light_colors = [desaturate_colour(c, self.desaturate_factor) for c in colors] if self.desaturate else colors
 
@@ -165,8 +183,6 @@ class ReactionProfilePlotter:
             all_points = np.vstack(all_points)
             ax.plot(all_points[:, 0], all_points[:, 1], color=light_colors[i], linewidth=self.line_width, linestyle=linestyle, dash_capstyle='round')
 
-
-            from matplotlib.lines import Line2D
             legend_line = Line2D(
                 [0], [0],
                 color=light_colors[i],
@@ -224,11 +240,9 @@ class ReactionProfilePlotter:
         if self.segment_annotations:
             y_min, _ = ax.get_ylim()
             y_arrow = y_min - 0.00 * (max(all_energies) - min(all_energies))  # place below data
-            for seg in self.segment_annotations:
-                x_start, x_end = seg['start'], seg['end']
-                label = seg.get('label', '')
-                color = seg.get('color', 'black')
-                text_color = seg.get('text_color', 'crimson')
+            for label, (x_start, x_end) in self.segment_annotations.items():
+                color = self.arrow_color
+                text_color = self.annotation_color
 
                 # Draw double-headed arrow
                 ax.annotate(
@@ -246,7 +260,6 @@ class ReactionProfilePlotter:
                     annotation_clip=False
                 )
 
-                # Draw label centered under arrow
                 x_center = (x_start + x_end) / 2
                 ax.text(
                     x_center, y_arrow - 0.5,
