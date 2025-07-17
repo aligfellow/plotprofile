@@ -70,7 +70,8 @@ See [examples/example.ipynb](examples/example.ipynb) for more explicit code
 ### Further details
 - Secondary curves can begin from after the 1st point, just need to have a `None` entry in the list of energies
 - Spacing of energies can be altered by passing the same energy twice in a row
-  - this will place the point halfway between the two x indices
+  - this will place the point halfway between the two x indices,
+    - *i.e.* Pathway C point in examples
 
 ## CLI - to do...
 Currently untested - probably won't work for now
