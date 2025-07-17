@@ -17,12 +17,11 @@ pip install plotprofile
 Use case for example: 
 ```python
 from plotProfile import ReactionProfilePlotter
-import numpy as np
 
 energy_sets = {
     "Pathway A": [0.00, -2.0, 10.2, 1.4, -1.5, 2.0, -7.2],
-    "Pathway B": [np.nan, -2.0, 6.2, 4.3, 5.8, 2.0],
-    "Pathway C": [np.nan, -2.0, -6.8,-6.8],
+    "Pathway B": [None, -2.0, 6.2, 4.3, 5.8, 2.0],
+    "Pathway C": [None, -2.0, -6.8,-6.8],
 }
 
 annotations = {
