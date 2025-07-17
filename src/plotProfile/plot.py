@@ -14,16 +14,13 @@ from matplotlib.font_manager import FontProperties, fontManager
 
 import colorsys
 import json
-from pathlib import Path as PathPath
-
-STYLE_PATH = PathPath(__file__).parent / "styles.json"
-
-from matplotlib.font_manager import FontProperties
+import importlib.resources as pkg_resources
 
 
 def _load_style(style_name):
-    with open(STYLE_PATH, 'r') as f:
+    with pkg_resources.files('plotProfile').joinpath('styles.json').open('r') as f:
         styles = json.load(f)
+
     base = styles.get("default", {})
     overlay = styles.get(style_name, {})
     base.update(overlay)
