@@ -1,5 +1,5 @@
 # plotProfile
-Python code for plotting reaction profiles with various style options
+Python code for plotting professional looking reaction profiles with various customisation options available
 
 ## Installation
 Local installation (may not respect the styles.json):
