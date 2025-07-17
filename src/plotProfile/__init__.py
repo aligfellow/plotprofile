@@ -1,1 +1,1 @@
-from . import plot, cli, utils
+from . import cli, plot, utils

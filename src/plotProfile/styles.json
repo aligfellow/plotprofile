@@ -16,15 +16,21 @@
       "font_weight": "bold",
       "font_style": "normal",
       "axis_linewidth": 2.0,
+      "buffer_factor": 0.025,
       "axes": false,
       "colors": ["darkcyan", "maroon", "midnightblue", "darkmagenta", "darkgreen", "saddlebrown"],
       "segment_annotations": [],
       "arrow_color": "xkcd:dark grey",
-      "annotation_color": "maroon"
+      "annotation_color": "maroon",
+      "annotation_size": 10,
+      "energy": "G",
+      "units": "kcal",
+      "annotation_space": 0.1
     },
     "presentation": {
       "figsize": [8, 5],
       "font_size": 14,
+      "annotation_size": 14,
       "marker_size": 8,
       "line_width": 3.0,
       "bar_width": 3.5,
