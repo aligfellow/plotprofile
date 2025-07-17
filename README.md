@@ -35,6 +35,8 @@ plotter = ReactionProfilePlotter(dashed=["off-cycle", "Pathway C"])
 plotter.plot(energy_sets, annotations=annotations)
 ```
 Pass in `annotations` for labelling of the reaction profile:
+    - this is done in the plotting function rather than the class
+    - allowing for multiple plots of the same style with different annotations
 
 <img src="./images/profile1.png" height="300" alt="Example 1">
 
