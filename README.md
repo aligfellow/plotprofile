@@ -13,11 +13,6 @@ From pypi
 pip install plotprofile
 ```
 
-## To Do
-- label placement is primitive and could be improved
-   - for now these can be tweaked with postprocessing 
-- check cli options
-
 ## Python Usage examples
 Use case for example: 
 ```python
@@ -77,5 +72,9 @@ Currently untested - probably won't work for now
 python -m plotProfile --input examples/input.json --labels --format png
 ```
 
+## To Do
+- label placement is primitive and could be improved
+   - for now these can be tweaked with postprocessing 
+- check cli options
 
 
