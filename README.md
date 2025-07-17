@@ -67,7 +67,7 @@ Straight lines set in a style, which can also be done by passing in `curviness=0
 
 See [examples/example.ipynb](examples/example.ipynb) for more explicit code
 
-## CLI
+## CLI - to do...
 Currently untested - probably won't work for now
 ```bash
 python -m plotProfile --input examples/input.json --labels --format png
