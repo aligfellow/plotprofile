@@ -7,7 +7,7 @@ git clone git@github.com:aligfellow/plotProfile.git
 cd plotProfile
 pip install .
 ```
-- *check the installation, `pip install .` seems to not respect the json locally*
+- *check the installation,* `pip install .` *seems to not respect the json locally*
 
 ## To Do
 - label placement is primitive and could be improved
