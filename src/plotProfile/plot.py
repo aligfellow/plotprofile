@@ -10,6 +10,9 @@ from pathlib import Path as PathPath
 
 STYLE_PATH = PathPath(__file__).parent / "styles.json"
 
+from matplotlib.font_manager import FontProperties
+
+
 def _load_style(style_name):
     with open(STYLE_PATH, 'r') as f:
         styles = json.load(f)
@@ -68,12 +71,30 @@ class ReactionProfilePlotter:
         self.bar_width = style_dict["bar_width"]
         self.marker_size = style_dict["marker_size"]
         self.font_size = style_dict["font_size"]
+        self.font_kwargs = {
+            'fontsize': style_dict.get('font_size', 10),
+        }
+        self.font_properties = self._get_font_properties(style_dict)
         self.axes = style_dict["axes"]
         self.axis_linewidth = style_dict["axis_linewidth"]
         self.colors = style_dict["colors"]
         self.arrow_color = style_dict["arrow_color"]
         self.annotation_color = style_dict["annotation_color"]
         self.segment_annotations = style_dict["segment_annotations"]
+        self.annotation_kwargs = {
+            'fontsize': style_dict.get('font_size', 10),
+            'fontfamily': style_dict.get('font_family', 'sans-serif'),
+            'fontweight': style_dict.get('annotation_weight', 'semibold'),
+            'fontstyle': style_dict.get('annotation_style', 'italic'),
+        }
+    def _get_font_properties(self, font_dict):
+        return FontProperties(
+            family=font_dict.get('font_family', 'sans-serif'),
+            weight=font_dict.get('font_weight', 'normal'),
+            style=font_dict.get('font_style', 'normal'),
+            size=font_dict.get('font_size', 10),
+        )
+
 
     def plot(self, energy_dict, filename=None, file_format='png', dpi=600, include_keys=None):
         if include_keys is not None:
@@ -190,59 +211,60 @@ class ReactionProfilePlotter:
 
                         ax.annotate(f"{energy:.1f}".replace('-', '−'), xy=(x[j], label_pos),
                                     xytext=(0, buffer_space if valign == 'bottom' else -buffer_space),
-                                    textcoords='offset points', ha='center', va=valign, fontsize=self.font_size)
+                                    textcoords='offset points', ha='center', va=valign, fontproperties=self.font_properties, fontweight='normal',)
                         labeled_coords.add(coord_key)
 
         # --- legend
         if self.show_legend:
             handles, labels_ = ax.get_legend_handles_labels()
             # unique = dict(zip(labels, handles))  # Remove duplicates
-            ax.legend(handles[::-1], labels_[::-1], loc='best', fontsize=self.font_size)
+            ax.legend(handles[::-1], labels_[::-1], loc='best', prop=self.font_properties)
 
         # --- segment annotations with double-headed arrows
         if self.segment_annotations:
+            y_min, _ = ax.get_ylim()
+            y_arrow = y_min - 0.00 * (max(all_energies) - min(all_energies))  # place below data
+            for seg in self.segment_annotations:
+                x_start, x_end = seg['start'], seg['end']
+                label = seg.get('label', '')
+                color = seg.get('color', 'black')
+                text_color = seg.get('text_color', 'crimson')
+
+                # Draw double-headed arrow
+                ax.annotate(
+                    '', 
+                    xy=(x_end, y_arrow), 
+                    xytext=(x_start, y_arrow),
+                    arrowprops=dict(
+                        arrowstyle='<->',
+                        color=self.arrow_color,
+                        lw=self.line_width,
+                        # ls='--',
+                        shrinkA=0.5,
+                        shrinkB=0.5,
+                    ),
+                    annotation_clip=False
+                )
+
+                # Draw label centered under arrow
+                x_center = (x_start + x_end) / 2
+                ax.text(
+                    x_center, y_arrow - 0.5,
+                    label,
+                    ha='center', va='top',
+                    color=self.annotation_color,
+                    **self.annotation_kwargs,
+                )
             # only draw if there is no x-axis to be shown
             if self.axes in ['x', 'both', 'box']:
-                pass
-            else:
-                y_min, _ = ax.get_ylim()
-                y_arrow = y_min - 0.00 * (max(all_energies) - min(all_energies))  # place below data
-                for seg in self.segment_annotations:
-                    x_start, x_end = seg['start'], seg['end']
-                    label = seg.get('label', '')
-                    color = seg.get('color', 'black')
-                    text_color = seg.get('text_color', 'crimson')
+                y_min, y_max = ax.get_ylim()
+                energy_range = max(all_energies) - min(all_energies)
 
-                    # Draw double-headed arrow
-                    ax.annotate(
-                        '', 
-                        xy=(x_end, y_arrow), 
-                        xytext=(x_start, y_arrow),
-                        arrowprops=dict(
-                            arrowstyle='<->',
-                            color=self.arrow_color,
-                            lw=self.line_width,
-                            # ls='--',
-                            shrinkA=2,
-                            shrinkB=2,
-                        ),
-                        annotation_clip=False
-                    )
+                y_buffer = 0.08 * energy_range
+                ax.set_ylim(y_min - y_buffer, y_max)
 
-                    # Draw label centered under arrow
-                    x_center = (x_start + x_end) / 2
-                    ax.text(
-                        x_center, y_arrow - 0.5,
-                        label,
-                        ha='center', va='top',
-                        fontsize=self.font_size,
-                        color=self.annotation_color,
-                        fontweight='semibold', 
-                        fontstyle='italic'
-                    )
-
-        ax.set_ylabel(r'$\Delta G \text{ (kcal/mol)}$', fontsize=self.font_size)
-        ax.set_xlabel('Reaction Coordinate', fontsize=self.font_size)
+        ax.set_ylabel('ΔG (kcal/mol)', fontproperties=self.font_properties)
+        ax.set_xlabel('Reaction Coordinate', fontproperties=self.font_properties)
 
         # Hide all spines and ticks by default
         for spine in ax.spines.values():
@@ -278,6 +300,7 @@ class ReactionProfilePlotter:
                 length=5,
                 labelsize=self.font_size,
             )
+
             
         elif self.axes == 'both':
             ax.spines['bottom'].set_visible(True)
@@ -297,7 +320,8 @@ class ReactionProfilePlotter:
                 width=self.line_width,
                 length=5,
                 labelsize=self.font_size,
-            )
+            )            
+
 
         elif self.axes == 'box':
             for spine_name in ['bottom', 'top', 'left', 'right']:
@@ -317,6 +341,8 @@ class ReactionProfilePlotter:
                 length=5,
                 labelsize=self.font_size,
             )
+
+
         else:
             ax.set_xlabel(None)
             ax.set_ylabel(None)

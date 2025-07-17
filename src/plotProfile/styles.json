@@ -1,6 +1,6 @@
 {
     "default": {
-      "figsize": [5.5,5],
+      "figsize": [5,4.5],
       "point_type": "hollow",
       "curviness": 0.42,
       "desaturate": true,
@@ -12,6 +12,9 @@
       "bar_width": 3.0,
       "marker_size": 6,
       "font_size": 10,
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_style": "normal",
       "axis_linewidth": 2.0,
       "axes": false,
       "colors": ["darkcyan", "maroon", "midnightblue", "darkmagenta", "darkgreen", "saddlebrown"],
