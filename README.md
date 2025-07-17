@@ -32,7 +32,7 @@ annotations = {
     'Step 3': (5,6),
 }
 
-plotter = plotProfile.plot.ReactionProfilePlotter(style="default", dashed=["off-cycle", "Pathway C"], segment_annotations=annotations)
+plotter = plotProfile.plot.ReactionProfilePlotter(dashed=["off-cycle", "Pathway C"], segment_annotations=annotations)
 plotter.plot(energy_sets)
 ```
 - Here we pass in annotations for a labelling of the reaction profile:
