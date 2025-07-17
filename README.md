@@ -36,13 +36,17 @@ plotter = plotProfile.plot.ReactionProfilePlotter(style="default", dashed=["off-
 plotter.plot(energy_sets)
 ```
 - Here we pass in annotations for a labelling of the reaction profile
+
 <img src="images/profile1.png" height="200" alt="Example 1">
+
 A variety of paremters can be tuned for the plotting, including:
 - `axes="box|y|x|both|None"` 
 - `curviness=0.42` - reduce for less curve and vice versa
 - `colors=["list","of","colors"]|cmap` - specify colour list or colour map
 - `show_legend=Bool`
+
 <img src="images/profile2.png" height="200" alt="Example 2">
+
 <img src="images/profile3.png" height="200" alt="Example 3">
 
 See [examples/example.ipynb](examples/example.ipynb) for more explicit code
