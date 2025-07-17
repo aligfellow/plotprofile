@@ -25,7 +25,9 @@
       "annotation_size": 10,
       "energy": "G",
       "units": "kcal",
-      "annotation_space": 0.1
+      "annotation_space": 0.1,
+      "annotation_buffer": 0.0,
+      "arrow_width": 1.5
     },
     "presentation": {
       "figsize": [8, 5],
@@ -34,7 +36,9 @@
       "marker_size": 8,
       "line_width": 3.0,
       "bar_width": 3.5,
-      "axes": "box"
+      "axes": "box",
+      "annotation_space": 0.12,
+      "arrow_width": 2.5
     },
     "debug": {
       "axes": "both",

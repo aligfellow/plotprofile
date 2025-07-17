@@ -9,11 +9,12 @@ from itertools import cycle
 import math
 from matplotlib.patches import Circle
 from matplotlib.transforms import Bbox
+from matplotlib.font_manager import FontProperties, fontManager
+
 
 import colorsys
 import json
 from pathlib import Path as PathPath
-from adjustText import adjust_text
 
 STYLE_PATH = PathPath(__file__).parent / "styles.json"
 
@@ -91,15 +92,31 @@ class ReactionProfilePlotter:
         self.buffer_factor = style_dict.get("buffer_factor", 0.025)
         self.energy = style_dict.get("energy", "G")
         self.units = style_dict.get("units", "kcal")
+        self.annotation_space = style_dict.get("annotation_space", 0.01)
+        self.arrow_width = style_dict.get("arrow_width", 1.5)
+        self.annotation_buffer = style_dict.get("annotation_buffer", 0.0)
+
+        font_family = self.font_properties.get_family()
+        font_family = font_family[0] if font_family else 'sans-serif'
+
         self.annotation_kwargs = {
             'fontsize': style_dict.get('annotation_size', self.font_size),
-            'fontfamily': style_dict.get('font_family', 'sans-serif'),
+            'fontfamily': font_family,
             'fontweight': style_dict.get('annotation_weight', 'semibold'),
             'fontstyle': style_dict.get('annotation_style', 'italic'),
         }
     def _get_font_properties(self, font_dict):
+        requested_family = font_dict.get('font_family', 'sans-serif')
+        
+        # Check if requested font is available
+        available_fonts = {f.name for f in fontManager.ttflist}
+        if requested_family not in available_fonts:
+            fallback_family = 'DejaVu Sans'
+            # print(f"[Warning] Font '{requested_family}' not found. Falling back to '{fallback_family}'.")
+            requested_family = fallback_family
+
         return FontProperties(
-            family=font_dict.get('font_family', 'sans-serif'),
+            family=requested_family,
             weight=font_dict.get('font_weight', 'normal'),
             style=font_dict.get('font_style', 'normal'),
             size=font_dict.get('font_size', 10),
@@ -303,17 +320,14 @@ class ReactionProfilePlotter:
         # --- legend
         if self.show_legend:
             handles, labels_ = ax.get_legend_handles_labels()
-            # unique = dict(zip(labels, handles))  # Remove duplicates
             ax.legend(handles[::-1], labels_[::-1], loc='best', prop=self.font_properties)
 
         # --- segment annotations with double-headed arrows
         if self.segment_annotations:
             y_min, _ = ax.get_ylim()
-            y_arrow = y_min - 0.00 * (max(all_energies) - min(all_energies))  # place below data
+            y_arrow = y_min - self.annotation_buffer * (max(all_energies) - min(all_energies))  # place below data
             for label, (x_start, x_end) in self.segment_annotations.items():
-                color = self.arrow_color
-                text_color = self.annotation_color
-
+                
                 # Draw double-headed arrow
                 ax.annotate(
                     '', 
@@ -322,7 +336,7 @@ class ReactionProfilePlotter:
                     arrowprops=dict(
                         arrowstyle='<->',
                         color=self.arrow_color,
-                        lw=self.line_width,
+                        lw=self.arrow_width,
                         # ls='--',
                         shrinkA=0.5,
                         shrinkB=0.5,
@@ -343,7 +357,13 @@ class ReactionProfilePlotter:
                 y_min, y_max = ax.get_ylim()
                 energy_range = max(all_energies) - min(all_energies)
 
-                y_buffer = 0.08 * energy_range
+                y_buffer = self.annotation_space * energy_range
+                ax.set_ylim(y_min - y_buffer, y_max)
+            else:
+                y_min, y_max = ax.get_ylim()
+                energy_range = max(all_energies) - min(all_energies)
+
+                y_buffer = self.annotation_space * energy_range 
                 ax.set_ylim(y_min - y_buffer, y_max)
 
         if self.units.lower() == "kj":
