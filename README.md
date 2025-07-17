@@ -1,15 +1,29 @@
 # plotProfile
-notebook to plot reaction profiles
+Python code for plotting reaction profiles with various style options
 
-- label placement needs sorted
-- add option for straight line connections
-- RDkit structures...??
-- **UPDATE THE README AND CODE - CHECK THE CLI**
-# Reaction Profile Plotter
+## Installation
+```bash
+git clone git@github.com:aligfellow/plotProfile.git
+cd plotProfile
+pip install .
+```
+- *check the installation - I've been using the absolute path rather than an install*
 
-Plot reaction profiles from energy data using smooth Bezier curves with customizable styling.
+## To Do
+- label placement is primitive and could be improved
+   - for now these can be tweaked with postprocessing 
+- straight line connections with `curviness=0`
+- check cli options
 
-![Example Reaction Profile](images/reaction_profile.png)
+## Python Usage examples
+This package can be called once installed using `import plotProfile`
+
+
+![Example Reaction Profile 1](images/profile1.png)
+
+![Example Reaction Profile 2](images/profile2.png)
+
+![Example Reaction Profile 3](images/profile3.png)
 
 ## Features
 - Plot multiple energy sets with smooth curves
