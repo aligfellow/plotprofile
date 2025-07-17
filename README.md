@@ -2,17 +2,16 @@
 Python code for plotting reaction profiles with various style options
 
 ## Installation
+Local installation (may not respect the styles.json):
 ```bash
 git clone git@github.com:aligfellow/plotProfile.git
 cd plotProfile
 pip install .
 ```
-- *check the installation, `pip install .` seems to not respect the json locally*
-
-## To Do
-- label placement is primitive and could be improved
-   - for now these can be tweaked with postprocessing 
-- check cli options
+From pypi
+```bash
+pip install plotprofile
+```
 
 ## Python Usage examples
 Use case for example: 
@@ -35,7 +34,7 @@ annotations = {
 plotter = plotProfile.plot.ReactionProfilePlotter(dashed=["off-cycle", "Pathway C"], segment_annotations=annotations)
 plotter.plot(energy_sets)
 ```
-- Here we pass in annotations for a labelling of the reaction profile:
+Pass in `annotations` for labelling of the reaction profile:
 
 <img src="./images/profile1.png" height="300" alt="Example 1">
 
@@ -52,6 +51,8 @@ For example:
 plotter = plotProfile.plot.ReactionProfilePlotter(style="presentation", dashed=["off-cycle", "branching"], point_type='bar', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5)
 plotter.plot(energy_sets)
 ```
+Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines, larger font size:
+
 <img src="./images/profile2.png" height="300" alt="Example 2">
 
 For example:
@@ -59,15 +60,21 @@ For example:
 plotter = plotProfile.plot.ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["off-cycle", "branching"], point_type='dot', segment_annotations=annotations, annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon'], energy='electronic', units='kj')
 plotter.plot(energy_sets)
 ```
+Straight lines set in a style, which can also be done by passing in `curviness=0`:
+
 <img src="./images/profile3.png" height="300" alt="Example 3">
 
 See [examples/example.ipynb](examples/example.ipynb) for more explicit code
 
-## CLI
+## CLI - to do...
 Currently untested - probably won't work for now
 ```bash
 python -m plotProfile --input examples/input.json --labels --format png
 ```
 
+## To Do
+- label placement is primitive and could be improved
+   - for now these can be tweaked with postprocessing 
+- check cli options
 
 
