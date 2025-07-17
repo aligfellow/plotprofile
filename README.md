@@ -45,7 +45,7 @@ A variety of paremters can be tuned for the plotting, including:
 ![Example Reaction Profile 2](images/profile2.png)
 ![Example Reaction Profile 3](images/profile3.png)
 
-See !(examples/example.ipynb)[examples/example.ipynb] for more explicit code
+See [examples/example.ipynb](examples/example.ipynb) for more explicit code
 
 ## CLI
 Currently untested - probably won't work for now
