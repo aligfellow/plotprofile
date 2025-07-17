@@ -16,7 +16,7 @@ pip install plotprofile
 ## Python Usage examples
 Use case for example: 
 ```python
-import plotProfile
+from plotProfile import ReactionProfilePlotter
 import numpy as np
 
 energy_sets = {
@@ -31,8 +31,8 @@ annotations = {
     'Step 3': (5,6),
 }
 
-plotter = plotProfile.plot.ReactionProfilePlotter(dashed=["off-cycle", "Pathway C"], segment_annotations=annotations)
-plotter.plot(energy_sets)
+plotter = ReactionProfilePlotter(dashed=["off-cycle", "Pathway C"])
+plotter.plot(energy_sets, annotations=annotations)
 ```
 Pass in `annotations` for labelling of the reaction profile:
 
@@ -48,7 +48,7 @@ A variety of paremters can be tuned for the plotting, including:
 
 For example:
 ```python
-plotter = plotProfile.plot.ReactionProfilePlotter(style="presentation", dashed=["off-cycle", "branching"], point_type='bar', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5)
+plotter = ReactionProfilePlotter(style="presentation", dashed=["off-cycle", "branching"], point_type='bar', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5)
 plotter.plot(energy_sets)
 ```
 Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines, larger font size:
@@ -57,8 +57,8 @@ Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines,
 
 For example:
 ```python
-plotter = plotProfile.plot.ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["off-cycle", "branching"], point_type='dot', segment_annotations=annotations, annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon'], energy='electronic', units='kj')
-plotter.plot(energy_sets)
+plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["off-cycle", "branching"], point_type='dot', annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon'], energy='electronic', units='kj')
+plotter.plot(energy_sets, annotations=annotations)
 ```
 Straight lines set in a style, which can also be done by passing in `curviness=0`:
 
