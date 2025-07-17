@@ -44,6 +44,8 @@ A variety of paremters can be tuned for the plotting, including:
 - `curviness=0.42` - reduce for less curve and vice versa
 - `colors=["list","of","colors"]|cmap` - specify colour list or colour map
 - `show_legend=Bool`
+- `units="kj|kcal"`
+- `energy="e|electronic|g|gibbs|h|enthalpy|s|entropy|"
 
 <img src="./images/profile2.png" height="200" alt="Example 2">
 
