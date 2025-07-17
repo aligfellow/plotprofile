@@ -31,7 +31,7 @@ annotations = {
 }
 
 plotter = ReactionProfilePlotter(dashed=["Pathway C"])
-plotter.plot(energy_sets, annotations=annotations)
+plotter.plot(energy_sets, annotations=annotations, filename="../images/profile1")
 ```
 Pass in `annotations` for labelling of the reaction profile:
 - this is done in the plotting function rather than the class
@@ -50,7 +50,7 @@ A variety of paremters can be tuned for the plotting, including:
 For example:
 ```python
 plotter = ReactionProfilePlotter(style="presentation", dashed=["Pathway B"], point_type='bar', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5)
-plotter.plot(energy_sets)
+plotter.plot(energy_sets, filename="../images/profile2")
 ```
 Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines, larger font size:
 
@@ -59,7 +59,7 @@ Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines,
 For example:
 ```python
 plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["Pathway C"], point_type='dot', annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon'], energy='electronic', units='kj')
-plotter.plot(energy_sets,annotations=annotations)
+plotter.plot(energy_sets,annotations=annotations, filename="../images/profile3")
 ```
 Straight lines set in a style, which can also be done by passing in `curviness=0`:
 
