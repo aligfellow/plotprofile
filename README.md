@@ -7,57 +7,48 @@ git clone git@github.com:aligfellow/plotProfile.git
 cd plotProfile
 pip install .
 ```
-- *check the installation - I've been using the absolute path rather than an install*
+- *check the installation, `pip install .` seems to not respect the json locally*
 
 ## To Do
 - label placement is primitive and could be improved
    - for now these can be tweaked with postprocessing 
-- straight line connections with `curviness=0`
 - check cli options
 
 ## Python Usage examples
-This package can be called once installed using `import plotProfile`
-
-
-![Example Reaction Profile 1](images/profile1.png)
-
-![Example Reaction Profile 2](images/profile2.png)
-
-![Example Reaction Profile 3](images/profile3.png)
-
-## Features
-- Plot multiple energy sets with smooth curves
-- Optional dashed line styles per curve
-- Dot or bar style data points
-- Automatic label placement with smart positioning
-- Export to EPS, PNG, SVG, or PDF formats
-- Command line interface for quick plotting
-
-## Installation
-
-```bash
-git clone X
-pip install .
+Use case for example: 
 ```
-
-## Usage
-
-### Python
-```python
-from plotProfile import plot_profile
+import plotProfile
 import numpy as np
 
-energy_sets = [
-    [0.00, 8.31, 0.00, 0.00, 0.00, 8.13, 18.5, 13.83, 0.00, -7.17],
-    [np.nan, 8.31, 1.0, 1.3, 11.73, 22.81, 19.02, 0.00],
-    [np.nan, 8.31, -10.4],
-    [np.nan, np.nan, np.nan, 0.0, -12.4],
-]
+energy_sets = {
+    "Pathway A": [0.00, -2.0, 10.2, 1.4, -1.5, 2.0, -7.2],
+    "Pathway B": [np.nan, -2.0, 6.2, 4.3, 5.8, 2.0],
+    "Pathway C": [np.nan, -2.0, -6.8,-6.8],
+}
 
-plot_profile(energy_sets, filename="reaction_profile", labels=True, point_type="dot", desaturate_curve=True)
+annotations = {
+    'Step 1': (0,3),
+    'Step 2': (3,5),
+    'Step 3': (5,6),
+}
+
+plotter = plotProfile.plot.ReactionProfilePlotter(style="default", dashed=["off-cycle", "Pathway C"], segment_annotations=annotations)
+plotter.plot(energy_sets)
 ```
+- Here we pass in annotations for a labelling of the reaction profile
+![Example Reaction Profile 1](images/profile1.png)
+A variety of paremters can be tuned for the plotting, including:
+- `axes="box|y|x|both|None"` 
+- `curviness=0.42` - reduce for less curve and vice versa
+- `colors=["list","of","colors"]|cmap` - specify colour list or colour map
+- `show_legend=Bool`
+![Example Reaction Profile 2](images/profile2.png)
+![Example Reaction Profile 3](images/profile3.png)
 
-### CLI
+See (examples/example.ipynb)[examples/example.ipynb] for more explicit code
+
+## CLI
+Currently untested - probably won't work for now
 ```bash
 python -m plotProfile --input examples/input.json --labels --format png
 ```
