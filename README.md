@@ -37,7 +37,7 @@ plotter.plot(energy_sets)
 ```
 - Here we pass in annotations for a labelling of the reaction profile:
 
-<img src="./images/profile1.png" height="200" alt="Example 1">
+<img src="./images/profile1.png" height="300" alt="Example 1">
 
 A variety of paremters can be tuned for the plotting, including:
 - `axes="box|y|x|both|None"` 
@@ -52,14 +52,14 @@ For example:
 plotter = plotProfile.plot.ReactionProfilePlotter(style="presentation", dashed=["off-cycle", "branching"], point_type='bar', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5)
 plotter.plot(energy_sets)
 ```
-<img src="./images/profile2.png" height="200" alt="Example 2">
+<img src="./images/profile2.png" height="300" alt="Example 2">
 
 For example:
 ```python
 plotter = plotProfile.plot.ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["off-cycle", "branching"], point_type='dot', segment_annotations=annotations, annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon'], energy='electronic', units='kj')
 plotter.plot(energy_sets)
 ```
-<img src="./images/profile3.png" height="200" alt="Example 3">
+<img src="./images/profile3.png" height="300" alt="Example 3">
 
 See [examples/example.ipynb](examples/example.ipynb) for more explicit code
 
