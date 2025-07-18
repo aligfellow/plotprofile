@@ -3,13 +3,20 @@ Python code for plotting professional looking reaction profiles with various cus
 
 ## Installation
 Local installation:
->[!warning]
->this may not respect the styles.json
 ```bash
 git clone git@github.com:aligfellow/plotProfile.git
 cd plotProfile
 pip install .
 ```
+>[!warning]
+>this may not respect the styles.json, if not:
+>```bash
+>git clone git@github.com:aligfellow/plotProfile.git
+>cd plotProfile
+>python -m build
+>pip install dist/plotprofile-1.0.1.tar.gz
+>```
+
 From pypi
 ```bash
 pip install plotprofile
