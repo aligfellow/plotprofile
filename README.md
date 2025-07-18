@@ -35,6 +35,7 @@ plotter.plot(energy_sets, annotations=annotations, filename="../images/profile1"
 ```
 Pass in `annotations` for labelling of the reaction profile:
 - this is done in the plotting function rather than the class
+- using dictionary with keys of labels and a tuple of the start and end x-indices
 - allowing for multiple plots of the same style with different annotations
 
 <img src="./images/profile1.png" height="300" alt="Example 1">
