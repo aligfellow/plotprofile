@@ -2,13 +2,18 @@
 Python code for plotting professional looking reaction profiles with various customisation options available
 
 ## Installation
-Local installation:
+### From pypi
+Simplest installation
+```bash
+pip install plotprofile
+```
+### Local installation
 ```bash
 git clone git@github.com:aligfellow/plotProfile.git
 cd plotProfile
 pip install .
 ```
->[!warning]
+>[!WARING]
 >this may not respect the styles.json, if not:
 >```bash
 >git clone git@github.com:aligfellow/plotProfile.git
@@ -17,10 +22,6 @@ pip install .
 >pip install dist/plotprofile-1.0.1.tar.gz
 >```
 
-From pypi
-```bash
-pip install plotprofile
-```
 
 ## Python Usage examples
 Use case for example: 
@@ -78,19 +79,22 @@ plotter.plot(energy_sets,annotations=annotations, filename="../images/profile3")
 See [examples/example.ipynb](examples/example.ipynb) for more explicit code
 
 ### Further details
-- Secondary curves can begin from after the 1st point, just need to have a `None` entry in the list of energies
-- Spacing of energies can be altered by passing the same energy twice in a row
-  - this will place the point halfway between the two x indices, *i.e.* Pathway C point in examples
+>[!IMPORTANT]
+>- Secondary curves can begin from after the 1st point, just need to have a `None` entry in the list of energies
+>- Spacing of energies can be altered by passing the same energy twice in a row
+>  - this will place the point halfway between the two x indices, *i.e.* Pathway C point in examples
 
-## CLI - to do...
-Currently untested - though this won't work for now
+## CLI 
+>[!NOTE]
+>Currently untested - though this won't work for now
 ```bash
 python -m plotProfile --input examples/input.json --labels --format png
 ```
 
 ## To Do
-- label placement is primitive and could be improved
-   - for now these can be tweaked with postprocessing 
-- check cli options
+>[!TIP]
+>- label placement is primitive and could be improved
+>   - for now these can be tweaked with postprocessing 
+>- check cli options
 
 
