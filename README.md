@@ -13,7 +13,7 @@ git clone git@github.com:aligfellow/plotProfile.git
 cd plotProfile
 pip install .
 ```
->[!WARING]
+>[!WARNING]
 >this may not respect the styles.json, if not:
 >```bash
 >git clone git@github.com:aligfellow/plotProfile.git
