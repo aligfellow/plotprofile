@@ -53,7 +53,7 @@ For example:
 plotter = ReactionProfilePlotter(style="presentation", dashed=["Pathway B"], point_type='bar', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5)
 plotter.plot(energy_sets, filename="../images/profile2")
 ```
-Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines, larger font size:
+- Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines, larger font size:
 
 <img src="./images/profile2.png" height="300" alt="Example 2">
 
@@ -62,7 +62,7 @@ For example:
 plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["Pathway C"], point_type='dot', annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon'], energy='electronic', units='kj')
 plotter.plot(energy_sets,annotations=annotations, filename="../images/profile3")
 ```
-Straight lines set in a style, which can also be done by passing in `curviness=0`:
+- Straight lines set in a style, which can also be done by passing in `curviness=0`:
 
 <img src="./images/profile3.png" height="300" alt="Example 3">
 
@@ -71,11 +71,10 @@ See [examples/example.ipynb](examples/example.ipynb) for more explicit code
 ### Further details
 - Secondary curves can begin from after the 1st point, just need to have a `None` entry in the list of energies
 - Spacing of energies can be altered by passing the same energy twice in a row
-  - this will place the point halfway between the two x indices,
-    - *i.e.* Pathway C point in examples
+  - this will place the point halfway between the two x indices, *i.e.* Pathway C point in examples
 
 ## CLI - to do...
-Currently untested - probably won't work for now
+Currently untested - though this won't work for now
 ```bash
 python -m plotProfile --input examples/input.json --labels --format png
 ```
