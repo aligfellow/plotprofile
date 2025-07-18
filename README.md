@@ -2,7 +2,9 @@
 Python code for plotting professional looking reaction profiles with various customisation options available
 
 ## Installation
-Local installation (may not respect the styles.json):
+Local installation:
+>[!warning]
+>this may not respect the styles.json
 ```bash
 git clone git@github.com:aligfellow/plotProfile.git
 cd plotProfile
