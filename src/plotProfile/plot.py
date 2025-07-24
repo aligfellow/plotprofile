@@ -143,7 +143,7 @@ class ReactionProfilePlotter:
         else:
             raise TypeError("`colors` must be a palette name (str), colormap object, or list of color codes.")
 
-    def plot(self, energy_dict, filename=None, annotations=None, file_format='png', dpi=600, include_keys=None):
+    def plot(self, energy_dict, filename=None, annotations=None, file_format='png', dpi=600, include_keys=None, exclude_from_legend=None):
         self.annotations = annotations
         if include_keys is not None:
             energy_dict = {k: v for k, v in energy_dict.items() if k in include_keys}
@@ -200,16 +200,16 @@ class ReactionProfilePlotter:
                 all_points.append(bezier_points)
             all_points = np.vstack(all_points)
             ax.plot(all_points[:, 0], all_points[:, 1], color=light_colors[i], linewidth=self.line_width, linestyle=linestyle, dash_capstyle='round')
-
-            legend_line = Line2D(
-                [0], [0],
-                color=light_colors[i],
-                linewidth=self.line_width,
-                linestyle=linestyle,
-                label=label,
-                dash_capstyle='round'
-            )
-            ax.add_line(legend_line)
+            if label not in exclude_from_legend:
+                legend_line = Line2D(
+                    [0], [0],
+                    color=light_colors[i],
+                    linewidth=self.line_width,
+                    linestyle=linestyle,
+                    label=label,
+                    dash_capstyle='round'
+                )
+                ax.add_line(legend_line)
 
         # --- draw points
         for i, (x, y) in enumerate(reversed(coords)):
