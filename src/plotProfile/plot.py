@@ -175,20 +175,20 @@ class ReactionProfilePlotter:
             valid_points = [(xi, yi) for xi, yi in zip(x, y) if not np.isnan(yi)]
             if len(valid_points) < 2:
                 # Not enough points to draw a line so skip and just draw a point
-                print(f"INFO: Not enough valid points for curve - just plotting an individual point for the energy series.")
+                print(f"INFO: Not enough valid points for curve - just plotting an individual point for series: {labels[i]}")
                 continue
             linestyle = 'dashed' if i in [len(coords) - 1 - d for d in dashed_indices] else 'solid'
             verts, codes = [], [Path.MOVETO]
 
-            for j in range(len(y) - 1):
-                if np.isnan(y[j]) or np.isnan(y[j + 1]):
-                    continue
+            for j in range(len(valid_points) - 1):
+                x0, y0 = valid_points[j]
+                x1, y1 = valid_points[j + 1]
+
                 if not verts:
-                    verts.append([x[j], y[j]])
-                    # codes = [Path.MOVETO]
-                verts.append([x[j] + self.curviness * (x[j + 1] - x[j]), y[j]])
-                verts.append([x[j + 1] - self.curviness * (x[j + 1] - x[j]), y[j + 1]])
-                verts.append([x[j + 1], y[j + 1]])
+                    verts.append([x0, y0])
+                verts.append([x0 + self.curviness * (x1 - x0), y0])
+                verts.append([x1 - self.curviness * (x1 - x0), y1])
+                verts.append([x1, y1])
                 codes += [Path.CURVE4, Path.CURVE4, Path.CURVE4]
 
             path = Path(verts, codes)
