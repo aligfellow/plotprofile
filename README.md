@@ -31,9 +31,10 @@ from plotProfile import ReactionProfilePlotter
 energy_sets = {
     "Pathway A": [0.00, -2.0, 10.2, 1.4, -1.5, 2.0, -7.2],
     "Pathway B": [None, -2.0, 6.2, 4.3, 5.8, 2.0],
-    "Pathway C": [None, -2.0, -6.8,-6.8],
+    "Pathway C": [None, -2.0, -6.8,-6.8, None, -2.0],
+    "diastereomer": [None, None, 12.2],
+    "diastereomer2": [None, None, 9.8, 9.8]
 }
-
 annotations = {
     'Step 1': (0,3),
     'Step 2': (3,5),
@@ -69,8 +70,8 @@ plotter.plot(energy_sets, filename="../images/profile2")
 
 For example:
 ```python
-plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["Pathway C"], point_type='dot', annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon'], energy='electronic', units='kj')
-plotter.plot(energy_sets,annotations=annotations, filename="../images/profile3")
+plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["Pathway C"], point_type='dot', annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon', 'forestgreen', 'darkmagenta'], energy='electronic', units='kj')
+plotter.plot(energy_sets,annotations=annotations, filename="../images/profile3", exclude_from_legend=["Pathway B"], include_keys=["Pathway A", "Pathway B", "Pathway C", "diastereomer"])
 ```
 - Straight lines set in a style, which can also be done by passing in `curviness=0`:
 
