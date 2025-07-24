@@ -73,7 +73,10 @@ For example:
 plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["Pathway C"], point_type='dot', annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon', 'forestgreen', 'darkmagenta'], energy='electronic', units='kj')
 plotter.plot(energy_sets,annotations=annotations, filename="../images/profile3", exclude_from_legend=["Pathway B"], include_keys=["Pathway A", "Pathway B", "Pathway C", "diastereomer"])
 ```
-- Straight lines set in a style, which can also be done by passing in `curviness=0`:
+- Straight lines set in a style, which can also be done by passing in `curviness=0`
+- Some parameters regarding the plotting data can be tuned in `ReactionProfilePlotter.plot`:
+    - `include_keys` - only some of the energy_sets keys() included in the plot
+    - `exclude_from_legend` - excluded one of the energy_sets key from the legend 
 
 <img src="./images/profile3.png" height="300" alt="Example 3">
 
