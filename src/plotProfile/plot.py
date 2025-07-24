@@ -41,17 +41,28 @@ def generate_coordinates(energies):
     x_coords, y_coords = [], []
     i = 0
     while i < len(energies):
-        x_coords.append(i)
-        y_coords.append(energies[i])
+        if energies[i] is None:
+            i += 1
+            continue
+            
+        # Start tracking a new segment
+        start_idx = i
+        current_energy = energies[i]
+        
+        # Find end of consecutive non-None duplicates
         j = i + 1
-        while j < len(energies) and energies[j] == energies[i]:
+        while j < len(energies) and energies[j] == current_energy and energies[j] is not None:
             j += 1
-        if j - i > 1:
-            midpoint = (x_coords[-1] + j - 1) / 2
-            x_coords[-1] = midpoint
-            y_coords[-1] = energies[i]
+            
+        # Calculate midpoint if we have consecutive duplicates
+        if j - start_idx > 1:
+            midpoint = (start_idx + j - 1) / 2
             x_coords.append(midpoint)
-            y_coords.append(energies[i])
+            y_coords.append(current_energy)
+        else:
+            x_coords.append(i)
+            y_coords.append(current_energy)
+            
         i = j
     return x_coords, y_coords
 
