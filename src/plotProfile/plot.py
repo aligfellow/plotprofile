@@ -172,6 +172,11 @@ class ReactionProfilePlotter:
 
         # --- draw curves
         for i, (x, y) in enumerate(reversed(coords)):
+            valid_points = [(xi, yi) for xi, yi in zip(x, y) if not np.isnan(yi)]
+            if len(valid_points) < 2:
+                # Not enough points to draw a line so skip and just draw a point
+                print(f"INFO: Not enough valid points for curve - just plotting an individual point for the energy series.")
+                continue
             linestyle = 'dashed' if i in [len(coords) - 1 - d for d in dashed_indices] else 'solid'
             verts, codes = [], [Path.MOVETO]
 
