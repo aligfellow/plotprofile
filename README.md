@@ -80,7 +80,7 @@ plotter.plot(energy_sets,annotations=annotations, filename="../images/profile3",
 
 <img src="./images/profile3.png" height="300" alt="Example 3">
 
-See [examples/example.ipynb](examples/example.ipynb) for more explicit code
+See [examples/example.ipynb](examples/example.ipynb) 
 
 ### Further details
 >[!IMPORTANT]
