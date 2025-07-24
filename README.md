@@ -83,6 +83,7 @@ See [examples/example.ipynb](examples/example.ipynb) for more explicit code
 >- Secondary curves can begin from after the 1st point, just need to have a `None` entry in the list of energies *e.g.* `[None, 0.0, 1.0]`
 >- Individual points can be placed if this is a list with only one energy value (*e.g.* uncluttered diastereomeric TS for example, see examples)
 >    - labels of theses are not added to the legend
+>    - these can even be placed as individual points between two indices with `[None, 5.0, 5.0]`
 >- Spacing of points on the profile can be altered by:
 >    - passing the same energy twice in a row, which will place the point halfway between the two x-indices, *i.e.* Pathway C point in examples, *e.g.* `[0.0, 5.0, 5.0]`
 >    - with an entry like `[0.0, None, 1.0]` which will have a line connecting indexes 0 and 2 of this list with the correct x-axis alignment
