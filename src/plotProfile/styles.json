@@ -28,7 +28,8 @@
       "annotation_space": 0.1,
       "annotation_buffer": 0.0,
       "arrow_width": 1.5,
-      "sig_figs": 1
+      "sig_figs": 1,
+      "point_label_color": "black"
     },
     "presentation": {
       "figsize": [8, 5],
