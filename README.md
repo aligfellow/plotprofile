@@ -1,9 +1,11 @@
 # plotProfile
 Python code for plotting professional looking reaction profiles with various customisation options available
 
+## Installation
+### Google Colab 
+Can be used with `colab.ipynb` without a local install 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/aligfellow/plotProfile/blob/main/examples/colab.ipynb)
 
-## Installation
 ### From pypi
 Simplest installation
 ```bash
@@ -23,7 +25,6 @@ pip install .
 >python -m build
 >pip install dist/plotprofile-1.0.1.tar.gz
 >```
-
 
 ## Python Usage examples
 Use case for example: 
