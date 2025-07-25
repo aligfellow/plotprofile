@@ -1,6 +1,8 @@
 # plotProfile
 Python code for plotting professional looking reaction profiles with various customisation options available
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/aligfellow/plotProfile/blob/main/examples/colab.ipynb)
+
 ## Installation
 ### From pypi
 Simplest installation
