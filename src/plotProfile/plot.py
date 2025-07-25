@@ -111,6 +111,7 @@ class ReactionProfilePlotter:
             self.arrow_width = float(style_dict.get('arrow_width', 1.5))
             self.annotation_buffer = float(style_dict.get('annotation_buffer', 0.0))
             self.sig_figs = int(style_dict.get('sig_figs', 1))
+            self.point_label_color = style_dict.get('point_label_color', 'black')
         except Exception as e:
             logger.error(f"Invalid style parameters: {e}")
             raise ValueError(f"Invalid style parameters: {e}")
@@ -187,7 +188,7 @@ class ReactionProfilePlotter:
                 raise TypeError(f"Invalid energy value at index {i}{label_str}: {val} (type {type(val)})")
         return valid_list
 
-    def plot(self, energy_data, filename=None, annotations=None, file_format='png', dpi=600, include_keys=None, exclude_from_legend=[]):
+    def plot(self, energy_data, filename=None, annotations=None, point_labels=None, file_format='png', dpi=600, include_keys=None, exclude_from_legend=[]):
 
         processed_dict = {}
         if isinstance(energy_data, dict):
@@ -231,6 +232,44 @@ class ReactionProfilePlotter:
             for k in labels
         ]
         dashed_indices = [labels.index(k) for k in self.dashed if k in labels]
+
+        # Process point labels if provided
+        if point_labels is not None:
+            if isinstance(point_labels, dict):
+                # Convert dict format to match processed_dict keys
+                processed_point_labels = {}
+                for label, values in point_labels.items():
+                    if label in processed_dict:
+                        # Validate length matches energy profile
+                        if len(values) > len(processed_dict[label]):
+                            logger.warning(f"Point labels for '{label}' is longer than the energy profile length. Skipping.")
+                            continue
+                        processed_point_labels[label] = [
+                            str(v) if v is not None else None for v in values
+                        ]
+            elif isinstance(point_labels, list):
+                # Convert list format to match processed_dict structure
+                processed_point_labels = {}
+                if all(isinstance(sublist, list) for sublist in point_labels):
+                    # List of lists
+                    for i, sublist in enumerate(point_labels):
+                        label = f"_unlabeled_{i}"
+                        if label in processed_dict and len(sublist) == len(processed_dict[label]):
+                            processed_point_labels[label] = [
+                                str(v) if v is not None else None for v in sublist
+                            ]
+                else:
+                    # Single list
+                    label = "_unlabeled_"
+                    if label in processed_dict and len(point_labels) == len(processed_dict[label]):
+                        processed_point_labels[label] = [
+                            str(v) if v is not None else None for v in point_labels
+                        ]
+            else:
+                logger.warning("point_labels must be a dict or list. Skipping point labels.")
+                processed_point_labels = None
+        else:
+            processed_point_labels = None
 
         coords = [generate_coordinates(e) for e in energy_sets]
         all_energies = [e for xs, ys in coords for e in ys if not np.isnan(e)]
@@ -306,7 +345,7 @@ class ReactionProfilePlotter:
                 elif self.point_type in ['hollow', 'o']:
                     ax.plot(x[j], energy, marker='o', markerfacecolor='white', markeredgecolor=colors[i], markeredgewidth=self.line_width)
 
-
+        # --- draw points and labels
         if self.labels:
             label_coords = []
             label_vals = []
@@ -322,6 +361,51 @@ class ReactionProfilePlotter:
 
             sorted_xs = sorted(set(round(px, 3) for px, _ in sorted_points))
             x_index_map = {xv: i for i, xv in enumerate(sorted_xs)}
+
+            # Create a mapping from (x, energy) to point labels
+            point_label_map = {}
+            if processed_point_labels is not None:
+                for i, (x, y) in enumerate(reversed(coords)):
+                    profile_label = labels[len(coords) - 1 - i]
+                    if profile_label not in processed_point_labels:
+                        continue
+                        
+                    point_label_list = processed_point_labels[profile_label]
+                    energy_profile = processed_dict[profile_label]
+                    
+                    # Pad point_labels with None if shorter than energy list
+                    if len(point_label_list) < len(energy_profile):
+                        point_label_list = point_label_list + [None] * (len(energy_profile) - len(point_label_list))
+                    
+                    # Track original indices accounting for consecutive duplicates
+                    current_idx = 0
+                    while current_idx < len(energy_profile):
+                        if energy_profile[current_idx] is None:
+                            current_idx += 1
+                            continue
+                            
+                        # Find end of consecutive duplicates
+                        end_idx = current_idx + 1
+                        while (end_idx < len(energy_profile) and 
+                            energy_profile[end_idx] == energy_profile[current_idx] and 
+                            energy_profile[end_idx] is not None):
+                            end_idx += 1
+                        
+                        # Check if this point exists in our coordinates
+                        for j, (x_coord, energy) in enumerate(zip(x, y)):
+                            if np.isclose(energy, energy_profile[current_idx], atol=1e-3):
+                                # Get the label if it exists in the original profile
+                                for idx in range(current_idx, min(end_idx, len(point_label_list))):
+                                    if point_label_list[idx] is not None:
+                                        # Calculate x position - midpoint if multiple points
+                                        if end_idx - current_idx > 1:
+                                            x_pos = (current_idx + end_idx - 1) / 2
+                                        else:
+                                            x_pos = current_idx
+                                        point_label_map[(x_pos, energy)] = point_label_list[idx]
+                                        break
+                        
+                        current_idx = end_idx
 
             for x, energy in sorted_points:
                 rx = round(x, 3)
@@ -375,7 +459,7 @@ class ReactionProfilePlotter:
                         preferred_y = energy + buffer_space if preferred_above else energy - buffer_space
                         valign = 'bottom' if preferred_above else 'top'
 
-                # Proceed with label
+                # Proceed with energy label
                 label_text = f"{energy:.{self.sig_figs}f}".replace('-', '−')
                 label_key = (x, label_text)
                 if label_key in labeled_set:
@@ -385,7 +469,7 @@ class ReactionProfilePlotter:
                 label_coords.append((x, preferred_y))
                 label_vals.append(label_text)
 
-                ax.annotate(
+                energy_label = ax.annotate(
                     label_text,
                     xy=(x, preferred_y),
                     xytext=(0, buffer_space if valign == 'bottom' else -buffer_space),
@@ -396,6 +480,42 @@ class ReactionProfilePlotter:
                     fontweight='normal',
                 )
 
+                # Add point label if it exists for this coordinate
+                if processed_point_labels is not None:
+                    # Find matching point label (accounting for floating point precision)
+                    point_label = None
+                    for (px, py), plabel in point_label_map.items():
+                        if np.isclose(px, x, atol=1e-3) and np.isclose(py, energy, atol=1e-3):
+                            point_label = plabel
+                            break
+                    
+                    if point_label:
+                        y_label = preferred_y + (2.2 * buffer_space) if preferred_above else preferred_y - (2.2 * buffer_space) 
+                        point_offset = (2.2 * buffer_space) if valign == 'bottom' else (-2.2 * buffer_space)
+                        point_valign = 'bottom' if valign == 'bottom' else 'top'
+                        
+                        ax.annotate(
+                            point_label,
+                            xy=(x, y_label),
+                            xytext=(0, point_offset),
+                            textcoords='offset points',
+                            ha='center',
+                            va=point_valign,
+                            fontproperties=self.font_properties,
+                            fontsize=self.font_size,
+                            color=self.point_label_color,
+                        )
+                        # if y_label is larger max(energy) in energy_sets then I need to buffer the y-axis to fit the labels.
+                        if y_label > max(all_energies):
+                            y_min, y_max = ax.get_ylim()
+                            energy_range = max(all_energies) - min(all_energies)
+                            y_buffer = 1.2 * buffer_space 
+                            ax.set_ylim(y_min, y_max + y_buffer)
+                        elif y_label < min(all_energies):
+                            y_min, y_max = ax.get_ylim()
+                            energy_range = max(all_energies) - min(all_energies)
+                            y_buffer = 2 * buffer_space
+                            ax.set_ylim(y_min - y_buffer, y_max)
 
         # --- legend
         if self.show_legend:
