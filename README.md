@@ -23,7 +23,7 @@ pip install .
 >git clone git@github.com:aligfellow/plotProfile.git
 >cd plotProfile
 >python -m build
->pip install dist/plotprofile-1.0.1.tar.gz
+>pip install dist/plotprofile*tar.gz
 >```
 
 ## Python Usage examples
