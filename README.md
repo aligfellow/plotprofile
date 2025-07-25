@@ -1,9 +1,12 @@
 # plotProfile
-Python code for plotting professional looking reaction profiles with various customisation options available
+Python code for quick plotting of professional looking reaction profiles with various customisation options available
+
 [![PyPI Downloads](https://static.pepy.tech/badge/plotprofile)](https://pepy.tech/projects/plotprofile)
+
 ## Installation
 ### Google Colab 
 Can be used with `colab.ipynb` without a local install 
+
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/aligfellow/plotProfile/blob/main/examples/colab.ipynb)
 
 ### From pypi
