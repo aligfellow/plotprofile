@@ -3,14 +3,11 @@ import matplotlib.colors as mpc
 from matplotlib.path import Path 
 from matplotlib.lines import Line2D
 import seaborn as sns
-from scipy.signal import argrelextrema
 import numpy as np
 from itertools import cycle
-import math
 from matplotlib.patches import Circle
 from matplotlib.transforms import Bbox
 from matplotlib.font_manager import FontProperties, fontManager
-
 
 import colorsys
 import json
