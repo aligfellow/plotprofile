@@ -42,3 +42,6 @@ htmlcov/
 
 # Ignore temporary local notebooks/output
 output/
+
+# Ignore tmp test dir for local testing
+tmp_test/

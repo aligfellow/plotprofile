@@ -86,6 +86,31 @@ plotter.plot(energy_sets,annotations=annotations, filename="../images/profile3",
 
 <img src="./images/profile3.png" height="300" alt="Example 3">
 
+- Point labels can be also added by passing `point_labels` to `ReactionProfilePlotter.plot`
+
+```python
+from plotProfile import ReactionProfilePlotter
+
+energy_sets = {
+    "1": [-3.0, 12.5, 2.9, 0.0, 1.8, 10.5, 2.9]
+}
+
+annotations = {
+    'Path 1': (0,3),
+    'Path 2': (3,6),
+}
+
+point_labels = {
+    "1": [None, "TS1", None, "0", None, "TS2"]
+}
+
+plotter = ReactionProfilePlotter(figsize=(4.5,4), axes='box', show_legend=False)
+plotter.plot(energy_sets, annotations=annotations, point_labels=point_labels)
+```
+
+<img src="./images/profile4.png" height="300" alt="Example 4">
+
+
 See [examples/example.ipynb](examples/example.ipynb) 
 
 ### Further details
@@ -148,7 +173,8 @@ The behavior can be customized via `styles.json` or by passing parameters to `Re
       "annotation_space": 0.1,
       "annotation_buffer": 0.0,
       "arrow_width": 1.5,
-      "sig_figs": 1
+      "sig_figs": 1,
+      "point_label_color": "black"
     },
     "presentation": {
       "figsize": [8, 5],
