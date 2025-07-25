@@ -27,7 +27,8 @@
       "units": "kcal",
       "annotation_space": 0.1,
       "annotation_buffer": 0.0,
-      "arrow_width": 1.5
+      "arrow_width": 1.5,
+      "sig_figs": 1
     },
     "presentation": {
       "figsize": [8, 5],

@@ -147,7 +147,8 @@ The behavior can be customized via `styles.json` or by passing parameters to `Re
       "units": "kcal",
       "annotation_space": 0.1,
       "annotation_buffer": 0.0,
-      "arrow_width": 1.5
+      "arrow_width": 1.5,
+      "sig_figs": 1
     },
     "presentation": {
       "figsize": [8, 5],

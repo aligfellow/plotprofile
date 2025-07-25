@@ -110,6 +110,7 @@ class ReactionProfilePlotter:
             self.annotation_space = float(style_dict.get('annotation_space', 0.01))
             self.arrow_width = float(style_dict.get('arrow_width', 1.5))
             self.annotation_buffer = float(style_dict.get('annotation_buffer', 0.0))
+            self.sig_figs = int(style_dict.get('sig_figs', 1))
         except Exception as e:
             logger.error(f"Invalid style parameters: {e}")
             raise ValueError(f"Invalid style parameters: {e}")
@@ -375,7 +376,7 @@ class ReactionProfilePlotter:
                         valign = 'bottom' if preferred_above else 'top'
 
                 # Proceed with label
-                label_text = f"{energy:.1f}".replace('-', '−')
+                label_text = f"{energy:.{self.sig_figs}f}".replace('-', '−')
                 label_key = (x, label_text)
                 if label_key in labeled_set:
                     continue
