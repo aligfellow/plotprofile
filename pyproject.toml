@@ -1,6 +1,6 @@
 [project]
 name = "plotprofile"
-version = "1.0.2"
+version = "1.0.3"
 description = "Plot reaction profiles with customizable curves and labels"
 authors = [{name = "Dr A Goodfellow"}]
 readme = "README.md"
