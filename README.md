@@ -109,4 +109,53 @@ python -m plotProfile --input examples/input.json --labels --format png
 >   - for now these can be tweaked with postprocessing 
 >- check cli options
 
+## Configuration options
+The behavior can be customized via `styles.json` or by passing parameters to `ReactionProfilePlotter()`. Here are all available options from `styles.json`:
+```json
+{
+    "default": {
+      "figsize": [5,4.5],
+      "point_type": "hollow",
+      "curviness": 0.42,
+      "desaturate": true,
+      "desaturate_factor": 1.2,
+      "dashed": [],
+      "labels": true,
+      "show_legend": true,
+      "line_width": 2.5,
+      "bar_width": 3.0,
+      "marker_size": 6,
+      "font_size": 10,
+      "font_family": "Arial",
+      "font_weight": "bold",
+      "font_style": "normal",
+      "axis_linewidth": 2.0,
+      "buffer_factor": 0.025,
+      "axes": "box",
+      "colors": ["darkcyan", "maroon", "midnightblue", "darkmagenta", "darkgreen", "saddlebrown"],
+      "segment_annotations": [],
+      "arrow_color": "xkcd:dark grey",
+      "annotation_color": "maroon",
+      "annotation_size": 10,
+      "energy": "G",
+      "units": "kcal",
+      "annotation_space": 0.1,
+      "annotation_buffer": 0.0,
+      "arrow_width": 1.5
+    },
+    "presentation": {
+      "figsize": [8, 5],
+      "font_size": 14,
+      "annotation_size": 14,
+      "marker_size": 8,
+      "line_width": 3.0,
+      "bar_width": 3.5,
+      "annotation_space": 0.12,
+      "arrow_width": 2.5
+    },
+    "straight": {
+      "curviness": 0.0
+    }
+  }
+```
 
