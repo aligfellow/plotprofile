@@ -353,6 +353,9 @@ class ReactionProfilePlotter:
             curves = []
             texts = []
 
+            label_extents = []
+            point_label_extents = []
+
             # Sort points for local max detection
             sorted_points = sorted([(x, y) for coords_ in coords for x, y in zip(*coords_) if not np.isnan(y)], key=lambda p: p[0])
             x_group = {}
@@ -480,6 +483,8 @@ class ReactionProfilePlotter:
                     fontweight='normal',
                 )
 
+                label_extents.append((x, preferred_y))
+
                 # Add point label if it exists for this coordinate
                 if processed_point_labels is not None:
                     # Find matching point label (accounting for floating point precision)
@@ -505,18 +510,19 @@ class ReactionProfilePlotter:
                             fontsize=self.font_size,
                             color=self.point_label_color,
                         )
-                        # if y_label is larger max(energy) in energy_sets then I need to buffer the y-axis to fit the labels.
-                        if y_label > max(all_energies):
-                            y_min, y_max = ax.get_ylim()
-                            energy_range = max(all_energies) - min(all_energies)
-                            y_buffer = 1.2 * buffer_space 
-                            ax.set_ylim(y_min, y_max + y_buffer)
-                        elif y_label < min(all_energies):
-                            y_min, y_max = ax.get_ylim()
-                            energy_range = max(all_energies) - min(all_energies)
-                            y_buffer = 2 * buffer_space
-                            ax.set_ylim(y_min - y_buffer, y_max)
+                        point_label_extents.append((x, y_label))
+                        
 
+            if label_extents or point_label_extents:
+                all_y = [y for x, y in label_extents + point_label_extents] + all_energies
+                y_min, y_max = min(all_y), max(all_y)
+                
+                # Add buffer space (using max of buffer_space or 10% of range)
+                y_range = y_max - y_min
+                padding = max(buffer_space, y_range * 0.1)
+                
+                ax.set_ylim(y_min - padding, y_max + padding)
+                
         # --- legend
         if self.show_legend:
             handles, labels_ = [], []
