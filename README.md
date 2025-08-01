@@ -5,9 +5,9 @@ Python code for quick plotting of professional looking reaction profiles with va
 
 ## Table of Contents
 1. [Installation](#installation)
-  a. [Google Colab](#google-colab)
-  b. [From PyPI](#from-pypi)
-  c. [Local Installation](#local-installation)
+a. [Google Colab](#google-colab)
+b. [From PyPI](#from-pypi)
+c. [Local Installation](#local-installation)
 2 [Python Usage Examples](#python-usage-examples)
 a. [Basic Reaction Profile](#example-1)
 b. [Presentation Style Customization](#example-2)
