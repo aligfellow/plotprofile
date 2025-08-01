@@ -159,8 +159,9 @@ class ReactionProfilePlotter:
                     
             elif isinstance(setting, list):
                 if len(setting) < num_colors:
-                    logger.warning(f"Color list has only {len(setting)} colors but {num_colors} are needed.")
-                    return setting * (num_colors // len(setting) + 1)
+                    logger.warning(f"Color list has only {len(setting)} colors but {num_colors} are needed. Repeating colors, please adjust if required.")
+                    repeats = (num_colors + len(setting) - 1) // len(setting)
+                    return (setting * repeats)[:num_colors]
                 return setting[:num_colors]
             elif hasattr(setting, "__call__"):  # matplotlib colormap object
                 return [setting(i / num_colors) for i in range(num_colors)]
