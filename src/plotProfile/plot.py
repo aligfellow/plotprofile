@@ -166,9 +166,9 @@ class ReactionProfilePlotter:
             elif hasattr(setting, "__call__"):  # matplotlib colormap object
                 return [setting(i / num_colors) for i in range(num_colors)]
             else:
-                raise TypeError("`colors` must be a palette name (str), colormap object, or list of color codes.")
+                logger.error(f"Invalid colour {setting}; `colors` must be a palette name (str), colormap object, or list of color codes. Defaulting to 'viridis' cmap.")
         except Exception as e:
-            logger.error(f"Error resolving colors: {e}")
+            logger.error(f"Error resolving colors: Check for typos. Defaulting to 'viridis' cmap.")
             fallback = plt.get_cmap('viridis')
             return [fallback(i / num_colors) for i in range(num_colors)]
         
