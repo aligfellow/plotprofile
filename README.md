@@ -3,22 +3,6 @@ Python code for quick plotting of professional looking reaction profiles with va
 
 [![PyPI Downloads](https://static.pepy.tech/badge/plotprofile)](https://pepy.tech/projects/plotprofile)
 
-## Table of Contents
-1. [Installation](#installation)
-a. [Google Colab](#google-colab)
-b. [From PyPI](#from-pypi)
-c. [Local Installation](#local-installation)
-2 [Python Usage Examples](#python-usage-examples)
-a. [Basic Reaction Profile](#example-1)
-b. [Presentation Style Customization](#example-2)
-c. [Straight Lines & Annotation Options](#example-3)
-d. [Point Labels & Multi-line Annotations](#example-4)
-e. [Bar Style Customization](#example-5)
-3. [Features & Behavior](#further-details)
-4. [Command Line Interface](#cli)
-5. [Configuration Options](#configuration-options)
-6. [Development](#to-do)
-
 ## Installation
 ### Google Colab
 Can be used with `colab.ipynb` without a local install 
