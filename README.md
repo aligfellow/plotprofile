@@ -30,7 +30,7 @@ pip install .
 >```
 
 ## Python Usage examples
-Use case for example: 
+### Example 1
 ```python
 from plotProfile import ReactionProfilePlotter
 
@@ -50,14 +50,15 @@ annotations = {
 plotter = ReactionProfilePlotter(dashed=["Pathway C"])
 plotter.plot(energy_sets, annotations=annotations, filename="../images/profile1")
 ```
-Pass in `annotations` for labelling of the reaction profile:
+Passing in `annotations` for labelling of the reaction profile:
 - this is done in the plotting function rather than the class
 - using dictionary with keys of labels and a tuple of the start and end x-indices
 - allowing for multiple plots of the same style with different annotations
 
 <img src="./images/profile1.png" height="300" alt="Example 1">
 
-A variety of paremters can be tuned for the plotting, including:
+### Example 2
+A variety of other paremters can be tuned for the plotting, including:
 - `axes="box|y|x|both|None"` 
 - `curviness=0.42` - reduce for less curve and vice versa
 - `colors=["list","of","colors"]|cmap` - specify colour list or colour map
@@ -67,28 +68,29 @@ A variety of paremters can be tuned for the plotting, including:
 - `units="kj|kcal"`
 - `energy="e|electronic|g|gibbs|h|enthalpy|s|entropy|"`
 
-For example:
+Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines, larger font size:
 ```python
 plotter = ReactionProfilePlotter(style="presentation", dashed=["Pathway B"], point_type='dot', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5)
 plotter.plot(energy_sets, filename="../images/profile2")
 ```
-- Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines, larger font size:
 
 <img src="./images/profile2.png" height="300" alt="Example 2">
 
-For example:
-```python
-plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["Pathway C"], point_type='bar', annotation_color='black', axes='y', colors=['midnightblue', 'slateblue', 'darkviolet'], energy='electronic', units='kj', annotation_below_arrow=True, dash_spacing=5.0, desaturate=False)
-plotter.plot(energy_sets, annotations=annotations, filename="../images/profile3", exclude_from_legend=["Pathway B"], include_keys=["Pathway A", "Pathway B", "Pathway C", "diastereomer"])
-```
+### Example 3
 - Straight lines set in a style, which can also be done by passing in `curviness=0`
 - Labels can be placed below the annotation arrow 
 - Some parameters regarding the plotting data can be tuned in `ReactionProfilePlotter.plot`:
     - `include_keys` - only some of the energy_sets keys() included in the plot
-    - `exclude_from_legend` - excluded one of the energy_sets key from the legend 
+    - `exclude_from_legend` - excluded one of the energy_sets key from the legend
+
+```python
+plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["Pathway C"], point_type='bar', annotation_color='black', axes='y', colors=['midnightblue', 'slateblue', 'darkviolet'], energy='electronic', units='kj', annotation_below_arrow=True, dash_spacing=5.0, desaturate=False)
+plotter.plot(energy_sets, annotations=annotations, filename="../images/profile3", exclude_from_legend=["Pathway B"], include_keys=["Pathway A", "Pathway B", "Pathway C", "diastereomer"])
+```
 
 <img src="./images/profile3.png" height="300" alt="Example 3">
 
+### Example 4
 - Point labels can be also added by passing `point_labels` to `ReactionProfilePlotter.plot`
 - Annotations can accomodatenewline characters `\n` and spacing will be adjusted automatically
 
@@ -114,6 +116,7 @@ plotter.plot(energy_sets, annotations=annotations, point_labels=point_labels, fi
 
 <img src="./images/profile4.png" height="300" alt="Example 4">
 
+### Example 5
 - Bar lengths and widths can be adjusted
 - Default line/curve behaviour with bars is to connect at the edges, this can be turned off with `connect_bar_ends=False`
 - Dash spacing of the line can be changed with `dash_spacing` 
@@ -143,7 +146,7 @@ plotter.plot(energy_sets, annotations=annotations, point_labels=point_labels, fi
 
 See [examples/example.ipynb](examples/example.ipynb) 
 
-### Further details
+## Further details
 >[!IMPORTANT]
 >- Secondary curves can begin from after the 1st point, just need to have a `None` entry in the list of energies *e.g.* `[None, 0.0, 1.0]`
 >- Individual points can be placed if this is a list with only one energy value (*e.g.* uncluttered diastereomeric TS for example, see examples)
