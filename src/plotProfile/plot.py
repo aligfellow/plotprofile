@@ -112,6 +112,7 @@ class ReactionProfilePlotter:
             self.annotation_buffer = float(style_dict.get('annotation_buffer', 0.0))
             self.sig_figs = int(style_dict.get('sig_figs', 1))
             self.point_label_color = style_dict.get('point_label_color', 'black')
+            self.annotation_below_arrow = style_dict.get('annotation_below_arrow', False)
         except Exception as e:
             logger.error(f"Invalid style parameters: {e}")
             raise ValueError(f"Invalid style parameters: {e}")
@@ -537,8 +538,10 @@ class ReactionProfilePlotter:
         if self.annotations:
             y_min, _ = ax.get_ylim()
             y_arrow = y_min - self.annotation_buffer * (max(all_energies) - min(all_energies))  # place below data
+            increase_label_space = False
             for label, (x_start, x_end) in self.annotations.items():
-                
+                if "\n" in label:
+                    increase_label_space = True # sort spacing automatically for labels with multiple lines
                 # Draw double-headed arrow
                 ax.annotate(
                     '', 
@@ -556,19 +559,42 @@ class ReactionProfilePlotter:
                 )
 
                 x_center = (x_start + x_end) / 2
-                ax.text(
-                    x_center, y_arrow - 0.5,
-                    label,
-                    ha='center', va='top',
-                    color=self.annotation_color,
-                    **self.annotation_kwargs,
-                )
+                
+                if not self.annotation_below_arrow:
+                    bbox_props = dict(
+                    boxstyle='round,pad=0.2',
+                    facecolor='white',
+                    edgecolor='none',
+                    ) 
+                    ax.annotate(
+                        label,
+                        xy=(x_center, y_arrow),
+                        xytext=(0, 0),
+                        textcoords='offset points',
+                        ha='center',
+                        va='center',
+                        color=self.annotation_color,
+                        bbox=bbox_props,
+                        **self.annotation_kwargs,
+                    )
+                else:
+                    ax.text(
+                        x_center, y_arrow - 0.3,
+                        label,
+                        ha='center', va='top',
+                        color=self.annotation_color,
+                        **self.annotation_kwargs,
+                    )
             # only draw if there is no x-axis to be shown
             if self.axes in ['x', 'both', 'box']:
                 y_min, y_max = ax.get_ylim()
                 energy_range = max(all_energies) - min(all_energies)
 
                 y_buffer = self.annotation_space * energy_range
+                if increase_label_space:
+                    y_buffer = y_buffer * 1.75
+                if self.annotation_below_arrow:
+                    y_buffer = y_buffer * 2
                 ax.set_ylim(y_min - y_buffer, y_max)
             else:
                 y_min, y_max = ax.get_ylim()
