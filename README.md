@@ -76,10 +76,12 @@ plotter.plot(energy_sets, filename="../images/profile2")
 
 For example:
 ```python
-plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["Pathway C"], point_type='dot', annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon', 'forestgreen', 'darkmagenta'], energy='electronic', units='kj')
+plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["Pathway C"], point_type='dot', annotation_color='black', axes='y', colors=['darkseagreen', 'slateblue', 'darksalmon', 'forestgreen', 'darkmagenta'], energy='electronic', units='kj', annotation_below_arrow=True)
 plotter.plot(energy_sets,annotations=annotations, filename="../images/profile3", exclude_from_legend=["Pathway B"], include_keys=["Pathway A", "Pathway B", "Pathway C", "diastereomer"])
 ```
 - Straight lines set in a style, which can also be done by passing in `curviness=0`
+- Labels can be placed below the annotation arrow 
+    - these can also include newline characters `\n` and spacing will be adjusted automatically (see below)
 - Some parameters regarding the plotting data can be tuned in `ReactionProfilePlotter.plot`:
     - `include_keys` - only some of the energy_sets keys() included in the plot
     - `exclude_from_legend` - excluded one of the energy_sets key from the legend 
@@ -170,7 +172,8 @@ The behavior can be customized via `styles.json` or by passing parameters to `Re
       "annotation_size": 10,
       "energy": "G",
       "units": "kcal",
-      "annotation_space": 0.1,
+      "annotation_below_arrow": false,
+      "annotation_space": 0.05,
       "annotation_buffer": 0.0,
       "arrow_width": 1.5,
       "sig_figs": 1,
