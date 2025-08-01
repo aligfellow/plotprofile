@@ -96,7 +96,8 @@ class ReactionProfilePlotter:
             self.labels = bool(style_dict.get('labels', True))
             self.show_legend = bool(style_dict.get('show_legend', True))
             self.line_width = float(style_dict.get('line_width', 2))
-            self.bar_width = float(style_dict.get('bar_width', 2))
+            self.bar_width = float(style_dict.get('bar_width', 3))
+            self.bar_length = float(style_dict.get('bar_length', 0.3))
             self.marker_size = float(style_dict.get('marker_size', 5))
             self.font_size = int(style_dict.get('font_size', 10))
             self.axes = style_dict.get('axes', '')
@@ -112,7 +113,9 @@ class ReactionProfilePlotter:
             self.annotation_buffer = float(style_dict.get('annotation_buffer', 0.0))
             self.sig_figs = int(style_dict.get('sig_figs', 1))
             self.point_label_color = style_dict.get('point_label_color', 'black')
-            self.annotation_below_arrow = style_dict.get('annotation_below_arrow', False)
+            self.annotation_below_arrow = bool(style_dict.get('annotation_below_arrow', False))
+            self.connect_bar_ends = bool(style_dict.get('connect_bar_ends', True))
+            self.dash_spacing = float(style_dict.get('dash_spacing', 2.5))
         except Exception as e:
             logger.error(f"Invalid style parameters: {e}")
             raise ValueError(f"Invalid style parameters: {e}")
@@ -297,10 +300,25 @@ class ReactionProfilePlotter:
                 continue
             linestyle = 'dashed' if i in [len(coords) - 1 - d for d in dashed_indices] else 'solid'
             verts, codes = [], [Path.MOVETO]
+            bar_adjust = self.point_type == 'bar' and self.connect_bar_ends
+            bar_half_width = self.bar_length / 2
 
-            for j in range(len(valid_points) - 1):
-                x0, y0 = valid_points[j]
-                x1, y1 = valid_points[j + 1]
+            processed_points = []
+            for j, (x_pt, y_pt) in enumerate(valid_points):
+                if bar_adjust:
+                    if j == 0:
+                        processed_points.append((x_pt + bar_half_width, y_pt))
+                    elif j == len(valid_points) - 1:
+                        processed_points.append((x_pt - bar_half_width, y_pt))
+                    else:
+                        processed_points.append((x_pt - bar_half_width, y_pt))
+                        processed_points.append((x_pt + bar_half_width, y_pt))
+                else:
+                    processed_points.append((x_pt, y_pt))
+
+            for j in range(0, len(processed_points) - 1):
+                x0, y0 = processed_points[j]
+                x1, y1 = processed_points[j + 1]
 
                 if not verts:
                     verts.append([x0, y0])
@@ -321,8 +339,11 @@ class ReactionProfilePlotter:
                 P3 = verts[j + 3]
                 bezier_points = cubic_bezier_points(P0, P1, P2, P3)
                 all_points.append(bezier_points)
+            if len(all_points) == 0:
+                logger.warning(f"No valid points to draw curve for label '{label}'. Skipping.")
+                continue
             all_points = np.vstack(all_points)
-            ax.plot(all_points[:, 0], all_points[:, 1], color=light_colors[i], linewidth=self.line_width, linestyle=linestyle, dash_capstyle='round')
+            ax.plot(all_points[:, 0], all_points[:, 1], color=light_colors[i], linewidth=self.line_width, dashes=(self.line_width,self.dash_spacing) if linestyle == 'dashed' else (self.line_width,0), linestyle=linestyle, dash_capstyle='round')
             if label not in exclude_from_legend:
                 legend_line = Line2D(
                     [0], [0],
@@ -330,6 +351,7 @@ class ReactionProfilePlotter:
                     linewidth=self.line_width,
                     linestyle=linestyle,
                     label=label,
+                    # dashes= (self.line_width, self.dash_spacing) if linestyle == 'dashed' else (self.line_width, 0),
                     dash_capstyle='round'
                 )
                 ax.add_line(legend_line)
@@ -340,7 +362,7 @@ class ReactionProfilePlotter:
                 if np.isnan(energy):
                     continue
                 if self.point_type == 'bar':
-                    ax.plot([x[j] - 0.15, x[j] + 0.15], [energy, energy], color='black', lw=self.bar_width)
+                    ax.plot([x[j] - self.bar_length/2, x[j] + self.bar_length/2], [energy, energy], color='black', lw=self.bar_width)
                 elif self.point_type in ['dot', '.']:
                     ax.plot(x[j], energy, 'o', markersize=self.marker_size, color=colors[i])
                 elif self.point_type in ['hollow', 'o']:
@@ -426,7 +448,6 @@ class ReactionProfilePlotter:
 
                 preferred_above = is_local_max
                 preferred_y = energy + buffer_space if preferred_above else energy - buffer_space
-                valign = 'bottom' if preferred_above else 'top'
 
                 def find_parent_curve_index(x, y, coords):
                     for i, (xs, ys) in enumerate(coords):
@@ -461,7 +482,6 @@ class ReactionProfilePlotter:
                         # Label is nearer another curve — flip placement
                         preferred_above = not preferred_above
                         preferred_y = energy + buffer_space if preferred_above else energy - buffer_space
-                        valign = 'bottom' if preferred_above else 'top'
 
                 # Proceed with energy label
                 label_text = f"{energy:.{self.sig_figs}f}".replace('-', '−')
@@ -476,10 +496,10 @@ class ReactionProfilePlotter:
                 energy_label = ax.annotate(
                     label_text,
                     xy=(x, preferred_y),
-                    xytext=(0, buffer_space if valign == 'bottom' else -buffer_space),
+                    xytext=(0, 0),
                     textcoords='offset points',
                     ha='center',
-                    va=valign,
+                    va='center',
                     fontproperties=self.font_properties,
                     fontweight='normal',
                 )
@@ -496,17 +516,15 @@ class ReactionProfilePlotter:
                             break
                     
                     if point_label:
-                        y_label = preferred_y + (2.2 * buffer_space) if preferred_above else preferred_y - (2.2 * buffer_space) 
-                        point_offset = (2.2 * buffer_space) if valign == 'bottom' else (-2.2 * buffer_space)
-                        point_valign = 'bottom' if valign == 'bottom' else 'top'
+                        y_label = preferred_y + buffer_space if preferred_above else preferred_y - buffer_space
                         
                         ax.annotate(
                             point_label,
                             xy=(x, y_label),
-                            xytext=(0, point_offset),
+                            xytext=(0, 0),
                             textcoords='offset points',
                             ha='center',
-                            va=point_valign,
+                            va='center',
                             fontproperties=self.font_properties,
                             fontsize=self.font_size,
                             color=self.point_label_color,
@@ -520,10 +538,9 @@ class ReactionProfilePlotter:
                 
                 # Add buffer space (using max of buffer_space or 10% of range)
                 y_range = y_max - y_min
-                padding = max(buffer_space, y_range * 0.1)
-                
+                padding = 2 * buffer_space
                 ax.set_ylim(y_min - padding, y_max + padding)
-                
+
         # --- legend
         if self.show_legend:
             handles, labels_ = [], []
