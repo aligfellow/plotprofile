@@ -4,33 +4,33 @@ Python code for quick plotting of professional looking reaction profiles with va
 [![PyPI Downloads](https://static.pepy.tech/badge/plotprofile)](https://pepy.tech/projects/plotprofile)
 
 ## Table of Contents
-### [Installation](#installation)
-- [Google Colab](#google-colab)
-- [From PyPI](#from-pypi)
-- [Local Installation](#local-installation)
-### [Python Usage Examples](#python-examples)
-1. [Basic Reaction Profile](#example-1)
-2. [Presentation Style Customization](#example-2)
-3. [Straight Lines & Annotation Options](#example-3)
-4. [Point Labels & Multi-line Annotations](#example-4)
-5. [Bar Style Customization](#example-5)
-### [Features & Behavior](#further-details)
-### [Command Line Interface](#cli)
-### [Configuration Options](#config)
-### [Development](#to-do)
+1. [Installation](#installation)
+  a. [Google Colab](#google-colab)
+  b. [From PyPI](#from-pypi)
+  c. [Local Installation](#local-installation)
+2 [Python Usage Examples](#python-usage-examples)
+a. [Basic Reaction Profile](#example-1)
+b. [Presentation Style Customization](#example-2)
+c. [Straight Lines & Annotation Options](#example-3)
+d. [Point Labels & Multi-line Annotations](#example-4)
+e. [Bar Style Customization](#example-5)
+3. [Features & Behavior](#further-details)
+4. [Command Line Interface](#cli)
+5. [Configuration Options](#configuration-options)
+6. [Development](#to-do)
 
-## Installation {#installation}
-### Google Colab {#google-colab}
+## Installation
+### Google Colab
 Can be used with `colab.ipynb` without a local install 
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/aligfellow/plotProfile/blob/main/examples/colab.ipynb)
 
-### From pypi {#from-pypi}
+### From pypi
 Simplest installation
 ```bash
 pip install plotprofile
 ```
-### Local installation {#local-installation}
+### Local installation
 ```bash
 git clone git@github.com:aligfellow/plotProfile.git
 cd plotProfile
@@ -45,8 +45,8 @@ pip install .
 >pip install dist/plotprofile*tar.gz
 >```
 
-## Python Usage examples {#python-examples}
-### Example 1 {#example-1}
+## Python Usage examples
+### Example 1
 ```python
 from plotProfile import ReactionProfilePlotter
 
@@ -73,7 +73,7 @@ Passing in `annotations` for labelling of the reaction profile:
 
 <img src="./images/profile1.png" height="300" alt="Example 1">
 
-### Example 2 {#example-2}
+### Example 2 
 A variety of other paremters can be tuned for the plotting, including:
 - `axes="box|y|x|both|None"` 
 - `curviness=0.42` - reduce for less curve and vice versa
@@ -92,7 +92,7 @@ plotter.plot(energy_sets, filename="../images/profile2")
 
 <img src="./images/profile2.png" height="300" alt="Example 2">
 
-### Example 3 {#example-3}
+### Example 3 
 - Straight lines set in a style, which can also be done by passing in `curviness=0`
 - Labels can be placed below the annotation arrow 
 - Some parameters regarding the plotting data can be tuned in `ReactionProfilePlotter.plot`:
@@ -106,7 +106,7 @@ plotter.plot(energy_sets, annotations=annotations, filename="../images/profile3"
 
 <img src="./images/profile3.png" height="300" alt="Example 3">
 
-### Example 4 {#example-4}
+### Example 4 
 - Point labels can be also added by passing `point_labels` to `ReactionProfilePlotter.plot`
 - Annotations can accomodatenewline characters `\n` and spacing will be adjusted automatically
 
@@ -132,7 +132,7 @@ plotter.plot(energy_sets, annotations=annotations, point_labels=point_labels, fi
 
 <img src="./images/profile4.png" height="300" alt="Example 4">
 
-### Example 5 {#example-5}
+### Example 5 
 - Bar lengths and widths can be adjusted
 - Default line/curve behaviour with bars is to connect at the edges, this can be turned off with `connect_bar_ends=False`
 - Dash spacing of the line can be changed with `dash_spacing` 
@@ -162,7 +162,7 @@ plotter.plot(energy_sets, annotations=annotations, point_labels=point_labels, fi
 
 See [examples/example.ipynb](examples/example.ipynb) 
 
-## Further details {#further-details}
+## Further details 
 >[!IMPORTANT]
 >- Secondary curves can begin from after the 1st point, just need to have a `None` entry in the list of energies *e.g.* `[None, 0.0, 1.0]`
 >- Individual points can be placed if this is a list with only one energy value (*e.g.* uncluttered diastereomeric TS for example, see examples)
@@ -176,20 +176,20 @@ See [examples/example.ipynb](examples/example.ipynb)
 >    - list of lists (no labelling of different profiles)
 >    - single list
 
-## CLI {#cli}
+## CLI 
 >[!NOTE]
 >Currently untested - though this won't work for now
 ```bash
 python -m plotProfile --input examples/input.json --labels --format png
 ```
 
-## To Do {#to-do}
+## To Do 
 >[!TIP]
 >- label placement is primitive and could be improved
 >   - for now these can be tweaked with postprocessing 
 >- check cli options
 
-## Configuration options {#config}
+## Configuration options 
 The behavior can be customized via `styles.json` or by passing parameters to `ReactionProfilePlotter()`. Here are all available options from `styles.json`:
 ```json
 {
