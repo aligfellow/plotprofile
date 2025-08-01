@@ -61,6 +61,8 @@ A variety of paremters can be tuned for the plotting, including:
 - `axes="box|y|x|both|None"` 
 - `curviness=0.42` - reduce for less curve and vice versa
 - `colors=["list","of","colors"]|cmap` - specify colour list or colour map
+    - if the colour list is too short then colours will be repeated. 
+    - if the cmap is invalid, `viridis` will be set as a default
 - `show_legend=Bool`
 - `units="kj|kcal"`
 - `energy="e|electronic|g|gibbs|h|enthalpy|s|entropy|"`
