@@ -20,6 +20,9 @@ env/
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
+# tmp_test dir
+tmp_test/
+
 # Pytest cache
 .pytest_cache/
 
