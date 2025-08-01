@@ -21,7 +21,7 @@ env/
 .ipynb_checkpoints/
 
 # tmp_test dir
-tmp_test/
+tmp_test/ 
 
 # Pytest cache
 .pytest_cache/
