@@ -67,10 +67,11 @@ A variety of other paremters can be tuned for the plotting, including:
 - `show_legend=Bool`
 - `units="kj|kcal"`
 - `energy="e|electronic|g|gibbs|h|enthalpy|s|entropy|"`
+- `x_label` and `y_label` can be used to set cutoms axis labels
 
-Using `style="presentation"` which sets a larger `figsize=(X,X)`, thicker lines, larger font size:
+Using `style="presentation"` which sets a larger `figsize=(X,X)` with thicker lines and a larger font size:
 ```python
-plotter = ReactionProfilePlotter(style="presentation", dashed=["Pathway B"], point_type='dot', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5)
+plotter = ReactionProfilePlotter(style="presentation", dashed=["Pathway B"], point_type='dot', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5, x_label='Reaction Profile', y_label='Free Energy (kcal/mol)')
 plotter.plot(energy_sets, filename="../images/profile2")
 ```
 

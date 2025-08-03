@@ -116,6 +116,8 @@ class ReactionProfilePlotter:
             self.annotation_below_arrow = bool(style_dict.get('annotation_below_arrow', False))
             self.connect_bar_ends = bool(style_dict.get('connect_bar_ends', True))
             self.dash_spacing = float(style_dict.get('dash_spacing', 2.5))
+            self.x_label = style_dict.get('x_label', None)
+            self.y_label = style_dict.get('y_label', None)
         except Exception as e:
             logger.error(f"Invalid style parameters: {e}")
             raise ValueError(f"Invalid style parameters: {e}")
@@ -621,20 +623,26 @@ class ReactionProfilePlotter:
                 y_buffer = self.annotation_space * energy_range 
                 ax.set_ylim(y_min - y_buffer, y_max)
 
-        if self.units.lower() == "kj":
-            units = 'kJ/mol'
+        if self.y_label is not None:
+            ax.set_ylabel(self.y_label, fontproperties=self.font_properties)
         else:
-            units = 'kcal/mol'
-        if self.energy.lower() == 'e' or self.energy.lower() == 'energy' or self.energy.lower() == 'electronic':
-            energy = 'E'
-        elif self.energy.lower() == 'h' or self.energy.lower() == 'enthalpy': 
-            energy = 'H'
-        elif self.energy.lower() == 's' or self.energy.lower() == 'entropy':
-            energy = 'S'
+            if self.units.lower() == "kj":
+                units = 'kJ/mol'
+            else:
+                units = 'kcal/mol'
+            if self.energy.lower() == 'e' or self.energy.lower() == 'energy' or self.energy.lower() == 'electronic':
+                energy = 'E'
+            elif self.energy.lower() == 'h' or self.energy.lower() == 'enthalpy': 
+                energy = 'H'
+            elif self.energy.lower() == 's' or self.energy.lower() == 'entropy':
+                energy = 'S'
+            else:
+                energy = 'G'
+            ax.set_ylabel(f'Δ{energy} ({units})', fontproperties=self.font_properties)
+        if self.x_label is not None:
+            ax.set_xlabel(self.x_label, fontproperties=self.font_properties)
         else:
-            energy = 'G'
-        ax.set_ylabel(f'Δ{energy} ({units})', fontproperties=self.font_properties)
-        ax.set_xlabel('Reaction Coordinate', fontproperties=self.font_properties)
+            ax.set_xlabel('Reaction Coordinate', fontproperties=self.font_properties)
 
         # Hide all spines and ticks by default
         for spine in ax.spines.values():
