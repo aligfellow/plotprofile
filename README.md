@@ -67,7 +67,7 @@ A variety of other paremters can be tuned for the plotting, including:
 - `show_legend=Bool`
 - `units="kj|kcal"`
 - `energy="e|electronic|g|gibbs|h|enthalpy|s|entropy|"`
-- `x_label` and `y_label` can be used to set cutoms axis labels, superceeding `units` or `energy`
+- `x_label` and `y_label` can be used to set cutoms axis labels, **superceeding** `units` or `energy`
 
 Using `style="presentation"` which sets a larger `figsize=(X,X)` with thicker lines and a larger font size:
 ```python
