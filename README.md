@@ -21,13 +21,15 @@ cd plotProfile
 pip install .
 ```
 >[!WARNING]
->this may not respect the styles.json, if not:
->```bash
->git clone git@github.com:aligfellow/plotProfile.git
->cd plotProfile
->python -m build
->pip install dist/plotprofile*tar.gz
->```
+>this may not respect the styles.json, if not try:
+```bash
+git clone git@github.com:aligfellow/plotProfile.git
+cd plotProfile
+python -m build
+pip install dist/plotprofile*tar.gz
+```
+or simply:
+`pip install git+https://github.com/aligfellow/plotprofile.git`
 
 ## Python Usage examples
 ### Example 1
