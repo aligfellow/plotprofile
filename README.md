@@ -29,7 +29,9 @@ python -m build
 pip install dist/plotprofile*tar.gz
 ```
 or simply:
-`pip install git+https://github.com/aligfellow/plotprofile.git`
+````bash
+pip install git+https://github.com/aligfellow/plotprofile.git
+```
 
 ## Python Usage examples
 ### Example 1
