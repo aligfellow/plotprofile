@@ -33,6 +33,7 @@ or simply:
 pip install git+https://github.com/aligfellow/plotprofile.git
 ```
 
+
 ## Python Usage examples
 ### Example 1
 ```python
