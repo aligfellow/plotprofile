@@ -13,6 +13,8 @@ Can be used with `colab.ipynb` without a local install
 Simplest installation
 ```bash
 pip install plotprofile
+# OR
+pip install git+https://github.com/aligfellow/plotprofile.git
 ```
 ### Local installation
 ```bash
@@ -20,19 +22,6 @@ git clone git@github.com:aligfellow/plotProfile.git
 cd plotProfile
 pip install .
 ```
->[!WARNING]
->this may not respect the styles.json, if not try:
-```bash
-git clone git@github.com:aligfellow/plotProfile.git
-cd plotProfile
-python -m build
-pip install dist/plotprofile*tar.gz
-```
-or simply:
-````bash
-pip install git+https://github.com/aligfellow/plotprofile.git
-```
-
 
 ## Python Usage examples
 ### Example 1
