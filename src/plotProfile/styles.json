@@ -24,7 +24,7 @@
       "segment_annotations": [],
       "arrow_color": "xkcd:dark grey",
       "annotation_color": "maroon",
-      "annotation_size": 10,
+      "annotation_size": 11,
       "energy": "G",
       "units": "kcal",
       "annotation_below_arrow": false,
