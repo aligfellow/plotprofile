@@ -5,15 +5,17 @@ Python code for quick plotting of professional looking reaction profiles with va
 
 ## Installation
 ### Google Colab
-Can be used with `colab.ipynb` without a local install 
+Can be used with `colab.ipynb` without a local install.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/aligfellow/plotProfile/blob/main/examples/colab.ipynb)
 
-### From pypi
-Simplest installation
+### Pip
+Simplest installation:
 ```bash
 pip install plotprofile
-# OR
+```
+or from the latest version:
+```bash
 pip install git+https://github.com/aligfellow/plotprofile.git
 ```
 ### Local installation
@@ -23,7 +25,21 @@ cd plotProfile
 pip install .
 ```
 
-## Python Usage examples
+## Minimal Python Usage 
+```python
+from plotProfile import ReactionProfilePlotter
+
+energy_sets = {
+    "Pathway A": [0.00, -2.0, 10.2, 1.4, -1.5, 2.0, -7.2],
+    "Pathway B": [None, -2.0, 6.2, 4.3, 5.8, 2.0],
+}
+
+plotter = ReactionProfilePlotter()
+plotter.plot(energy_sets, filename="../images/profile0")
+```
+<img src="./images/profile0.png" height="300" alt="Example 0">
+
+## Further Python Examples
 ### Example 1
 ```python
 from plotProfile import ReactionProfilePlotter
@@ -87,7 +103,7 @@ plotter.plot(energy_sets, annotations=annotations, filename="../images/profile3"
 
 ### Example 4 
 - Point labels can be also added by passing `point_labels` to `ReactionProfilePlotter.plot`
-- Annotations can accomodatenewline characters `\n` and spacing will be adjusted automatically
+- Annotations can accomodate newline characters `\n` and spacing will be adjusted automatically
 
 ```python
 from plotProfile import ReactionProfilePlotter
@@ -139,7 +155,7 @@ plotter.plot(energy_sets, annotations=annotations, point_labels=point_labels, fi
 <img src="./images/profile5.png" height="300" alt="Example 5">
 
 
-See [examples/example.ipynb](examples/example.ipynb) 
+See [examples/example.ipynb](./examples/example.ipynb) 
 
 ## Further details 
 >[!IMPORTANT]
@@ -186,7 +202,7 @@ The behavior can be customized via `styles.json` or by passing parameters to `Re
       "bar_width": 3.0,
       "bar_length": 0.3,
       "marker_size": 6,
-      "font_size": 10,
+      "font_size": 12,
       "font_family": "Arial",
       "font_weight": "bold",
       "font_style": "normal",
@@ -197,7 +213,7 @@ The behavior can be customized via `styles.json` or by passing parameters to `Re
       "segment_annotations": [],
       "arrow_color": "xkcd:dark grey",
       "annotation_color": "maroon",
-      "annotation_size": 10,
+      "annotation_size": 11,
       "energy": "G",
       "units": "kcal",
       "annotation_below_arrow": false,
@@ -224,3 +240,5 @@ The behavior can be customized via `styles.json` or by passing parameters to `Re
   }
 ```
 
+<object data="examples/data.json" type="application/json" width="100%" height="300">
+</onject>
