@@ -19,3 +19,9 @@ packages = [{include = "plotProfile", from = "src"}]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+include = ["src*"]
+exclude = ["docs*", "tests*", "examples*"]
+
+[tool.setuptools.package-data]
+plotProfile = ["*.json"]
