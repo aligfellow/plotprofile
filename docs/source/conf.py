@@ -9,7 +9,7 @@
 project = 'plotProfile'
 copyright = '2025, A. S. Goodfellow'
 author = 'A. S. Goodfellow'
-release = '0.1'
+release = '1.0.9'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -21,6 +21,8 @@ extensions = [
     "sphinx_autodoc_typehints",
     "myst_parser",
 ]
+
+autosectionlabel_prefix_document = True
 
 templates_path = ['_templates']
 exclude_patterns = []

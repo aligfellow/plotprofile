@@ -1,6 +1,5 @@
-Plotting Examples
-====================================
-
+Plotting Customisation
+=========================
 Plotting Data
 -------------
 
@@ -15,137 +14,11 @@ All examples use these data unless specified otherwise:
         "Pathway B": [None, -2.0, 6.0, 4.0, 5.0, 2.0, None]
     }
 
-Plotting Behaviour 
-------------------
 
-This section demonstrates how to manipulate the reaction profile plotting
-beyond aesthetics: controlling x-axis positions, skipping points, starting
-later, finishing earlier, or placing individual points between indices.
-
-
-
-1. Point repeated for spacing
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Sometimes you want a point placed **between two x-indices**. This can
-be done by repeating the same energy value in consecutive positions.
-
-Example:
-
-.. code-block:: python
-
-    from plotProfile import ReactionProfilePlotter
-
-    energy_sets = {
-        "Pathway A": [0.0, 5.0, 5.0, 2.0],  # repeated 5.0 creates midpoint
-        "Pathway B": [0.0, 3.0, 1.0, 4.0],
-    }
-
-    plotter = ReactionProfilePlotter()
-    plotter.plot(energy_sets, filename="images/behaviour1")
-
-.. image:: images/behaviour1.png
-   :height: 300
-   :alt: Behaviour Example 1
-
-2. Skipping an index
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-You can skip an index by inserting `None` in the energy list.
-The line will connect non-None values automatically.
-
-Example:
-
-.. code-block:: python
-
-    energy_sets = {
-        "Pathway A": [0.0, 5.0, 2.0, 3.0],  
-        "Pathway B": [1.0, None, 4.0, 6.0],
-    }
-
-    plotter = ReactionProfilePlotter()
-    plotter.plot(energy_sets, filename="images/behaviour2")
-
-.. image:: images/behaviour2.png
-   :height: 300
-   :alt: Behaviour Example 2
-
-3. Starting later
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-A secondary curve can start after the first point. Place `None` in
-all preceding positions.
-
-Example:
-
-.. code-block:: python
-
-    energy_sets = {
-        "Pathway A": [0.0, -2.0, 5.0, 4.0],
-        "Pathway B": [None, None, 3.0, 6.0],
-    }
-
-    plotter = ReactionProfilePlotter()
-    plotter.plot(energy_sets, filename="images/behaviour3")
-
-.. image:: images/behaviour3.png
-   :height: 300
-   :alt: Behaviour Example 3
-
-4. Finishing earlier
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-If you want a curve to finish before the last index, just end the list
-before the other series.
-
-Example:
-
-.. code-block:: python
-
-    energy_sets = {
-        "Pathway A": [0.0, -2.0, 5.0, 4.0],
-        "Pathway B": [0.0, 2.0, 3.0],  # ends earlier
-    }
-
-    plotter = ReactionProfilePlotter()
-    plotter.plot(energy_sets, filename="images/behaviour4")
-
-.. image:: images/behaviour4.png
-   :height: 300
-   :alt: Behaviour Example 4
-
-5. Single isolated points
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Individual points can be placed by providing a list with only one
-energy value or surrounding ``None``.
-
-Example:
-
-.. code-block:: python
-
-    energy_sets = {
-        "Pathway A": [0.0, 5.0, -2.0, 4.0],
-        "TS1": [None, 7.0],
-    }
-
-    plotter = ReactionProfilePlotter()
-    plotter.plot(energy_sets, filename="images/behaviour5")
-
-.. image:: images/behaviour5.png
-   :height: 300
-   :alt: Behaviour Example 5
-
-
-Plotting Customisation
------------------------
+Parameters
+-------------
 
 This table summarizes the main plotting style parameters.
-
 
 +-------------------+-------------------+--------------------------------------------------+
 | Parameter         | Default           | Description                                      |
@@ -175,46 +48,8 @@ This table summarizes the main plotting style parameters.
 | units             | kcal              | Units of energy                                  |
 +-------------------+-------------------+--------------------------------------------------+
 
-
-A. Default Style
-~~~~~~~~~~~~~~~~
-The default style is applied automatically when you create a ``ReactionProfilePlotter`` instance without specifying a style.
-
-.. code-block:: python
-
-    plotter = ReactionProfilePlotter()
-    plotter.plot(energy_sets, filename="../images/profile10")
-
-.. image:: images/profile10.png
-   :height: 300px
-   :alt: Example 1
-
-B. Presentation Style
-~~~~~~~~~~~~~~~~~~~~~~~
-This style is designed to increase the size of the plot, font size and line width, making it more suitable for presentations. 
-
-.. code-block:: python
-
-    plotter = ReactionProfilePlotter(style=presentation)
-    plotter.plot(energy_sets, filename="../images/profile11")
-
-.. image:: images/profile11.png
-   :height: 300px
-   :alt: Example 1
-
-C. Straight Lines Style
-~~~~~~~~~~~~~~~~~~~~~~~~~
-This style inherits the default style but with straight lines instead of curved.
-
-.. code-block:: python
-
-    plotter = ReactionProfilePlotter(style=straight)
-    plotter.plot(energy_sets, filename="../images/profile12")
-
-.. image:: images/profile12.png
-   :height: 300px
-   :alt: Example 1
-
+Examples
+---------
 
 1. Axes Display
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -242,7 +77,7 @@ Axes can be shown selectively using the ``axes`` parameter:
 | axes      | y    |
 +-----------+------+
 
-.. image:: images/profile13.png
+.. image:: ../images/profile13.png
    :height: 300px
    :alt: Axes example
 
@@ -276,7 +111,7 @@ Axis labels can be fully customized:
 | units     | kcal                          |
 +-----------+-------------------------------+
 
-.. image:: images/profile14.png
+.. image:: ../images/profile14.png
    :height: 300px
    :alt: Axis labels example
 
@@ -313,7 +148,7 @@ The legend can be turned on/off, and specific lines can be included or excluded:
 | include_keys           | ['Pathway A', 'Pathway C'] |
 +------------------------+----------------------------+
 
-.. image:: images/profile15.png
+.. image:: ../images/profile15.png
    :height: 300px
    :alt: Legend example
 
@@ -335,7 +170,7 @@ Point styles can be selected with ``point_type``:
 | point_type | dot     |
 +------------+---------+
 
-.. image:: images/profile16.png
+.. image:: ../images/profile16.png
    :height: 300px
    :alt: Point type example
 
@@ -372,7 +207,7 @@ Bars have additional options:
 | connect_bar_ends  | True   |
 +-------------------+--------+
 
-.. image:: images/profile17.png
+.. image:: ../images/profile17.png
    :height: 300px
    :alt: Bar plot example
 
@@ -398,7 +233,7 @@ Lines can be dashed selectively with the ``dashed`` parameter
 | dash_spacing | 2.5           |
 +--------------+---------------+
 
-.. image:: images/profile18.png
+.. image:: ../images/profile18.png
    :height: 300px
    :alt: Dashed lines example
 
@@ -422,7 +257,7 @@ The ``curviness`` parameter uses Bezier curves to control line curvature:
 | curviness  | 0.7   |
 +------------+-------+
 
-.. image:: images/profile19.png
+.. image:: ../images/profile19.png
    :height: 300px
    :alt: Curved lines example
 
@@ -449,7 +284,7 @@ Colors can be customized:
 | colors      | Reds_r         |
 +------------+-----------------+
 
-.. image:: images/profile20.png
+.. image:: ../images/profile20.png
    :height: 300px
    :alt: Colors example
 
@@ -473,7 +308,7 @@ By default, the color of the lines are desaturated slightly relative to the poin
 | desaturate     | False |
 +----------------+-------+
 
-.. image:: images/profile21.png
+.. image:: ../images/profile21.png
    :height: 300px
    :alt: Saturation example
 
@@ -521,7 +356,7 @@ This adds an arrow at the bottom, with the text centered on the arrow.
 | annotation_size     | 11              |
 +---------------------+-----------------+
 
-.. image:: images/profile22.png
+.. image:: ../images/profile22.png
    :height: 300px
    :alt: Annotations example
 
@@ -551,6 +386,6 @@ Labels of points can be added in the following way:
 |                  | 'Int1', 'TS2']} |
 +------------------+-----------------+ 
 
-.. image:: images/profile23.png
+.. image:: ../images/profile23.png
    :height: 300px
    :alt: Labels example

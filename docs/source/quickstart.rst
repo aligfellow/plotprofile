@@ -1,8 +1,8 @@
-Enhanced Usage
-===============
+Quickstart
+===========
 
 Example 1
------------
+----------
 
 .. code-block:: python
 
@@ -37,7 +37,8 @@ Passing in `annotations` for labelling of the reaction profile:
 - allowing for multiple plots of the same style with different annotations
 
 Example 2
------------
+----------
+
 .. code-block:: python
 
     plotter = ReactionProfilePlotter(style="presentation", dashed=["Pathway B"], point_type='dot', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5, x_label='Reaction Profile', y_label='Free Energy (kcal/mol)')
@@ -70,7 +71,7 @@ A variety of other paremters can be tuned for the plotting, including:
 Using ``style="presentation"`` which sets a larger ``figsize=(X,X)`` with thicker lines and a larger font size:
 
 Example 3
------------
+----------
 
 .. code-block:: python
 
@@ -92,7 +93,7 @@ Example 3
     - ``exclude_from_legend`` - excluded one of the energy_sets key from the legend
 
 Example 4
------------
+---------- 
 
 .. code-block:: python
 
@@ -149,6 +150,4 @@ Example 5
 
 - Default line/curve behaviour with bars is to connect at the edges, this can be turned off with ``connect_bar_ends=False``
 
-- Dash spacing of the line can be changed with ``dash_spacing`` 
-
-
+- Dash spacing of the line can be changed with ``dash_spacing``

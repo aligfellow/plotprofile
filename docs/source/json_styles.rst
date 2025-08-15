@@ -1,4 +1,4 @@
-Plot styling json
+json styles
 =================
 
 There are a few preset styles available for use directly, allowing for quick customisation of the plot appearance. 
