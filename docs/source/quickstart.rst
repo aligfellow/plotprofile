@@ -24,10 +24,6 @@ Example 1
     plotter = ReactionProfilePlotter(dashed=["Pathway C"])
     plotter.plot(energy_sets, annotations=annotations, filename="../images/profile1")
 
-.. image:: ./images/profile1.png
-    :height: 300
-    :alt: Example 1
-
 Passing in `annotations` for labelling of the reaction profile:
 
 - this is done in the plotting function rather than the class
@@ -36,17 +32,19 @@ Passing in `annotations` for labelling of the reaction profile:
 
 - allowing for multiple plots of the same style with different annotations
 
+.. image:: ./images/profile1.png
+    :height: 300
+    :alt: Example 1
+
+
 Example 2
 ----------
+Using ``style="presentation"`` which sets a larger ``figsize=(X,X)`` with thicker lines and a larger font size:
 
 .. code-block:: python
 
     plotter = ReactionProfilePlotter(style="presentation", dashed=["Pathway B"], point_type='dot', desaturate=False, colors='Blues_r', show_legend=False, curviness=0.5, x_label='Reaction Profile', y_label='Free Energy (kcal/mol)')
     plotter.plot(energy_sets, filename="../images/profile2")
-
-.. image:: ./images/profile2.png
-    :height: 300
-    :alt: Example 2
 
 A variety of other paremters can be tuned for the plotting, including:
 
@@ -56,9 +54,9 @@ A variety of other paremters can be tuned for the plotting, including:
 
 - ``colors=["list","of","colors"]|cmap`` - specify colour list or colour map
 
-    - if the colour list is too short then colours will be repeated. 
+  - if the colour list is too short then colours will be repeated. 
 
-    - if the cmap is invalid, ``viridis`` will be set as a default
+  - if the cmap is invalid, ``viridis`` will be set as a default
 
 - ``show_legend=Bool``
 
@@ -68,7 +66,10 @@ A variety of other paremters can be tuned for the plotting, including:
 
 - ``x_label`` and ``y_label`` can be used to set cutoms axis labels, **superceeding** ``units`` or ``energy``
 
-Using ``style="presentation"`` which sets a larger ``figsize=(X,X)`` with thicker lines and a larger font size:
+.. image:: ./images/profile2.png
+    :height: 300
+    :alt: Example 2
+
 
 Example 3
 ----------
@@ -78,19 +79,19 @@ Example 3
     plotter = ReactionProfilePlotter(style="straight", figsize=(6,4), dashed=["Pathway C"], point_type='bar', annotation_color='black', axes='y', colors=['midnightblue', 'slateblue', 'darkviolet'], energy='electronic', units='kj', annotation_below_arrow=True, dash_spacing=5.0, desaturate=False)
     plotter.plot(energy_sets, annotations=annotations, filename="../images/profile3", exclude_from_legend=["Pathway B"], include_keys=["Pathway A", "Pathway B", "Pathway C", "diastereomer"])
 
-.. image:: ./images/profile3.png
-    :height: 300
-    :alt: Example 3
-
 - Straight lines set in a style, which can also be done by passing in ``curviness=0``
 
 - Labels can be placed below the annotation arrow 
 
 - Some parameters regarding the plotting data can be tuned in ``ReactionProfilePlotter.plot``:
 
-    - ``include_keys`` - only some of the energy_sets keys() included in the plot
+  - ``include_keys`` - only some of the energy_sets keys() included in the plot
 
-    - ``exclude_from_legend`` - excluded one of the energy_sets key from the legend
+  - ``exclude_from_legend`` - excluded one of the energy_sets key from the legend
+
+.. image:: ./images/profile3.png
+    :height: 300
+    :alt: Example 3
 
 Example 4
 ---------- 
@@ -113,13 +114,13 @@ Example 4
     plotter = ReactionProfilePlotter(figsize=(4.5,4), axes='box', show_legend=False)
     plotter.plot(energy_sets, annotations=annotations, point_labels=point_labels, filename="../images/profile4")
 
-.. image:: ./images/profile4.png
-    :height: 300
-    :alt: Example 4
-
 - Point labels can be also added by passing ``point_labels`` to ``ReactionProfilePlotter.plot``
 
 - Annotations can accommodate newline characters ``\n`` and spacing will be adjusted automatically
+
+.. image:: ./images/profile4.png
+    :height: 300
+    :alt: Example 4
 
 Example 5
 -----------
@@ -142,12 +143,12 @@ Example 5
     plotter = ReactionProfilePlotter(figsize=(4.5,4), axes='box', curviness=0.5, show_legend=False, point_type='bar', bar_length=0.3, bar_width=3, connect_bar_ends=False, dashed=["1"], dash_spacing=1.5)
     plotter.plot(energy_sets, annotations=annotations, point_labels=point_labels, filename="../images/profile5")
 
-.. image:: ./images/profile5.png
-    :height: 300
-    :alt: Example 5
-
 - Bar lengths and widths can be adjusted
 
 - Default line/curve behaviour with bars is to connect at the edges, this can be turned off with ``connect_bar_ends=False``
 
 - Dash spacing of the line can be changed with ``dash_spacing``
+
+.. image:: ./images/profile5.png
+    :height: 300
+    :alt: Example 5
