@@ -241,6 +241,3 @@ The behavior can be customized via `styles.json` or by passing parameters to `Re
     }
   }
 ```
-
-<object data="examples/data.json" type="application/json" width="100%" height="300">
-</onject>
