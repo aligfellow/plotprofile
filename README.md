@@ -1,6 +1,8 @@
 # plotProfile
 Python code for quick plotting of professional looking reaction profiles with various customisation options available
 
+More information can be found at [ReadTheDocs](https://plotprofile.readthedocs.io/en/latest/index.html)
+
 [![PyPI Downloads](https://static.pepy.tech/badge/plotprofile)](https://pepy.tech/projects/plotprofile)
 
 ## Installation
