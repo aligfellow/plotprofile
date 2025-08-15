@@ -1,10 +1,6 @@
 Enhanced Usage
 ===============
 
-.. contents::
-   :local:
-   :depth: 2
-
 Example 1
 -----------
 

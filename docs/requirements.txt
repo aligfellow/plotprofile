@@ -1,32 +1,14 @@
-# Core Sphinx dependencies
+# Core Sphinx and theme
 sphinx>=5.0.0
-sphinx-rtd-theme>=1.2.0
+sphinx_rtd_theme>=1.2.0
 
-# Markdown support (if you want to write docs in markdown)
-myst-parser>=0.18.0
-
-# Enhanced code blocks and copying
-sphinx-copybutton>=0.5.0
-
-# API documentation generation
+# Extensions used in your conf.py
 sphinx-autodoc-typehints>=1.19.0
-
-# Gallery generation for examples (optional but recommended)
-sphinx-gallery>=0.11.0
+myst-parser>=0.18.0
 
 # Your package dependencies (needed for autodoc to import your code)
 matplotlib>=3.0.0
 numpy>=1.18.0
-
-# Optional: Enhanced documentation features
-sphinxcontrib-bibtex>=2.4.0  # For bibliography/citations
-sphinx-tabs>=3.4.0          # For tabbed content
-sphinx-design>=0.3.0        # For modern UI components
-
-# Optional: Jupyter notebook integration
-nbsphinx>=0.8.0             # If you want to include Jupyter notebooks
-ipython>=7.0.0              # Required by nbsphinx
-
 # Optional: Advanced theming
 furo>=2022.6.0              # Alternative modern theme (instead of RTD theme)
 
