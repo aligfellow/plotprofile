@@ -1,4 +1,4 @@
-from plotProfile import ReactionProfilePlotter
+from plotprofile import ReactionProfilePlotter
 
 # -------------------------------
 # Behaviour Examples

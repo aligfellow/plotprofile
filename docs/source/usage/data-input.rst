@@ -1,7 +1,7 @@
 Data Input
 ===========
 
-This outlines the data types that are required for plotting with ``plotProfile``.
+This outlines the data types that are required for plotting with ``plotprofile``.
 
 Energies 
 -----------

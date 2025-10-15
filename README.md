@@ -1,4 +1,4 @@
-# plotProfile 
+# plotprofile 
 Python code for quick plotting of professional looking reaction profiles with various customisation options available
 
 More information can be found at [ReadTheDocs](https://plotprofile.readthedocs.io/)
@@ -9,7 +9,7 @@ More information can be found at [ReadTheDocs](https://plotprofile.readthedocs.i
 ### Google Colab
 Can be used with `colab.ipynb` without a local install.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/aligfellow/plotProfile/blob/main/examples/colab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/aligfellow/plotprofile/blob/main/examples/colab.ipynb)
 
 ### Pip
 Simplest installation:
@@ -22,14 +22,14 @@ pip install git+https://github.com/aligfellow/plotprofile.git
 ```
 ### Local installation
 ```bash
-git clone git@github.com:aligfellow/plotProfile.git
-cd plotProfile
+git clone git@github.com:aligfellow/plotprofile.git
+cd plotprofile
 pip install .
 ```
 
 ## Minimal Python Usage 
 ```python
-from plotProfile import ReactionProfilePlotter
+from plotprofile import ReactionProfilePlotter
 
 energy_sets = {
     "Pathway A": [0.00, -2.0, 10.2, 1.4, -1.5, 2.0, -7.2],
@@ -44,7 +44,7 @@ plotter.plot(energy_sets, filename="../images/profile0")
 ## Further Python Examples
 ### Example 1
 ```python
-from plotProfile import ReactionProfilePlotter
+from plotprofile import ReactionProfilePlotter
 
 energy_sets = {
     "Pathway A": [0.00, -2.0, 10.2, 1.4, -1.5, 2.0, -7.2],
@@ -108,7 +108,7 @@ plotter.plot(energy_sets, annotations=annotations, filename="../images/profile3"
 - Annotations can accomodate newline characters `\n` and spacing will be adjusted automatically
 
 ```python
-from plotProfile import ReactionProfilePlotter
+from plotprofile import ReactionProfilePlotter
 
 energy_sets = {
     "1": [-3.0, 12.5, 2.9, 0.0, 1.8, 10.5, 2.9]
@@ -136,7 +136,7 @@ plotter.plot(energy_sets, annotations=annotations, point_labels=point_labels, fi
 
 
 ```python
-from plotProfile import ReactionProfilePlotter
+from plotprofile import ReactionProfilePlotter
 
 energy_sets = {
     "1": [-3.0, 12.5, 2.9, 0.0, 1.8, 10.5, 2.9]
@@ -177,7 +177,7 @@ See [examples/example.ipynb](./examples/example.ipynb)
 >[!NOTE]
 >Currently untested - though this won't work for now
 ```bash
-python -m plotProfile --input examples/input.json --labels --format png
+python -m plotprofile --input examples/input.json --labels --format png
 ```
 
 ## To Do 

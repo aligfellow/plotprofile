@@ -1,9 +1,9 @@
-plotProfile API
+plotprofile API
 ===============
-This documentation provides an overview of the `plotProfile` package. 
+This documentation provides an overview of the `plotprofile` package. 
 
 .. toctree::
    :maxdepth: 4
 
-   plotProfile
+   plotprofile
 

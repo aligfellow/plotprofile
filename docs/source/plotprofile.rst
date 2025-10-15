@@ -1,21 +1,21 @@
-plotProfile API
+plotprofile API
 ===================
 
 Submodules
 ----------
 
-plotProfile.cli module
+plotprofile.cli module
 ----------------------
 
-.. automodule:: plotProfile.cli
+.. automodule:: plotprofile.cli
    :members:
    :undoc-members:
    :show-inheritance:
 
-plotProfile.plot module
+plotprofile.plot module
 -----------------------
 
-.. automodule:: plotProfile.plot
+.. automodule:: plotprofile.plot
    :members:
    :undoc-members:
    :show-inheritance:

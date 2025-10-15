@@ -7,7 +7,7 @@ All examples use these data unless specified otherwise:
 
 .. code-block:: python
 
-    from plotProfile import ReactionProfilePlotter
+    from plotprofile import ReactionProfilePlotter
 
     energy_sets = {
         "Pathway A": [0.0, -2.0, 10.0, 1.5, -1.5, 2.0, -7.0],

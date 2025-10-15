@@ -1,12 +1,12 @@
-.. plotProfile documentation master file, created by
+.. plotprofile documentation master file, created by
    sphinx-quickstart on Thu Aug 14 13:11:18 2025.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-plotProfile documentation
+plotprofile documentation
 =========================
 
-Welcome to the **plotProfile** documentation! This package provides tools for visualizing reaction profile energies. 
+Welcome to the **plotprofile** documentation! This package provides tools for visualizing reaction profile energies. 
 
 
 .. image:: https://static.pepy.tech/badge/plotprofile
@@ -35,7 +35,7 @@ Quick Example
 
 .. code-block:: python
 
-    from plotProfile import ReactionProfilePlotter
+    from plotprofile import ReactionProfilePlotter
 
     energy_sets = {
         "Pathway A": [0.00, -2.0, 10.2, 1.4, -1.5, 2.0, -7.2],

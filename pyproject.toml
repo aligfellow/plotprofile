@@ -7,21 +7,14 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 
-[tool.poetry.dependencies]
-python = "^3.8"
-matplotlib = "^3.7"
-numpy = "^1.23"
-
-[tool.poetry]
-packages = [{include = "plotProfile", from = "src"}]
 
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["src*"]
-exclude = ["docs*", "tests*", "examples*"]
+where = ["src"]
+exclude = ["docs*"]
 
 [tool.setuptools.package-data]
-plotProfile = ["*.json"]
+plotprofile = ["*.json"]

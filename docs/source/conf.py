@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'plotProfile'
+project = 'plotprofile'
 copyright = '2025, A. S. Goodfellow'
 author = 'A. S. Goodfellow'
 release = '1.0.9'
@@ -47,4 +47,3 @@ from pathlib import Path
 
 # Path to repo root
 REPO_ROOT = Path(__file__).resolve().parent.parent
-

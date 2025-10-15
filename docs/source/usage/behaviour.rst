@@ -16,7 +16,7 @@ Example:
 
 .. code-block:: python
 
-    from plotProfile import ReactionProfilePlotter
+    from plotprofile import ReactionProfilePlotter
 
     energy_sets = {
         "Pathway A": [0.0, 5.0, 5.0, 2.0],  # repeated 5.0 creates midpoint

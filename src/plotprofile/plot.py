@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 def _load_style(style_name):
-    with pkg_resources.files('plotProfile').joinpath('styles.json').open('r') as f:
+    with pkg_resources.files('plotprofile').joinpath('styles.json').open('r') as f:
         styles = json.load(f)
 
     base = styles.get("default", {})
