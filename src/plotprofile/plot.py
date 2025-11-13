@@ -118,6 +118,7 @@ class ReactionProfilePlotter:
             self.dash_spacing = float(style_dict.get('dash_spacing', 2.5))
             self.x_label = style_dict.get('x_label', None)
             self.y_label = style_dict.get('y_label', None)
+            self.x_indices = bool(style_dict.get('x_indices', False))
         except Exception as e:
             logger.error(f"Invalid style parameters: {e}")
             raise ValueError(f"Invalid style parameters: {e}")
@@ -664,6 +665,20 @@ class ReactionProfilePlotter:
             ax.spines['bottom'].set_visible(True)
             ax.spines['bottom'].set_linewidth(self.axis_linewidth)
             ax.set_ylabel(None)
+            
+            if self.x_indices:
+                # Get the maximum length of energy profiles to determine x range
+                max_length = max(len(processed_dict[k]) for k in processed_dict.keys())
+                ax.set_xticks(range(max_length))
+                ax.set_xticklabels(range(max_length))
+                ax.tick_params(
+                    axis='x', which='both',
+                    bottom=True,
+                    labelbottom=True,
+                    width=self.line_width,
+                    length=5,
+                    labelsize=self.font_size,
+                )
 
         elif self.axes == 'y':
             ax.spines['left'].set_visible(True)
@@ -686,11 +701,24 @@ class ReactionProfilePlotter:
             ax.spines['bottom'].set_linewidth(self.axis_linewidth)
             ax.spines['left'].set_linewidth(self.axis_linewidth)
 
-            ax.tick_params(
-                axis='x', which='both',
-                bottom=False,
-                labelbottom=False
-            )
+            if self.x_indices:
+                max_length = max(len(processed_dict[k]) for k in processed_dict.keys())
+                ax.set_xticks(range(max_length))
+                ax.set_xticklabels(range(max_length))
+                ax.tick_params(
+                    axis='x', which='both',
+                    bottom=True,
+                    labelbottom=True,
+                    width=self.line_width,
+                    length=5,
+                    labelsize=self.font_size,
+                )
+            else:
+                ax.tick_params(
+                    axis='x', which='both',
+                    bottom=False,
+                    labelbottom=False
+                )
             ax.tick_params(
                 axis='y', which='both',
                 left=True,
@@ -706,11 +734,24 @@ class ReactionProfilePlotter:
                 ax.spines[spine_name].set_visible(True)
                 ax.spines[spine_name].set_linewidth(self.axis_linewidth)
 
-            ax.tick_params(
-                axis='x', which='both',
-                bottom=False,
-                labelbottom=False
-            )
+            if self.x_indices:
+                max_length = max(len(processed_dict[k]) for k in processed_dict.keys())
+                ax.set_xticks(range(max_length))
+                ax.set_xticklabels(range(max_length))
+                ax.tick_params(
+                    axis='x', which='both',
+                    bottom=True,
+                    labelbottom=True,
+                    width=self.line_width,
+                    length=5,
+                    labelsize=self.font_size,
+                )
+            else:
+                ax.tick_params(
+                    axis='x', which='both',
+                    bottom=False,
+                    labelbottom=False
+                )
             ax.tick_params(
                 axis='y', which='both',
                 left=True,
