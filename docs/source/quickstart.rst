@@ -152,3 +152,13 @@ Example 5
 .. image:: ./images/profile5.png
     :height: 300
     :alt: Example 5
+
+
+Saving
+-------
+
+Plots can be saved by passing ``filename`` to ``plotter.plot()``. The output format is controlled by ``file_format`` and supports any standard matplotlib format (e.g. ``png``, ``svg``, ``pdf``, ``eps``). Resolution can be set with ``dpi`` (default: 600).
+
+.. code-block:: python
+
+    plotter.plot(energy_sets, filename="my_profile", file_format="svg", dpi=300)

@@ -157,9 +157,16 @@ plotter.plot(energy_sets, annotations=annotations, point_labels=point_labels, fi
 <img src="./images/profile5.png" height="300" alt="Example 5">
 
 
-See [examples/example.ipynb](./examples/example.ipynb) 
+See [examples/example.ipynb](./examples/example.ipynb)
 
-## Further details 
+## Saving
+Plots can be saved by passing `filename` to `plotter.plot()`. The output format is controlled by `file_format` and supports any standard matplotlib format (e.g. `png`, `svg`, `pdf`, `eps`). Resolution can be set with `dpi` (default: 600).
+
+```python
+plotter.plot(energy_sets, filename="my_profile", file_format="svg", dpi=300)
+```
+
+## Further details
 >[!IMPORTANT]
 >- Secondary curves can begin from after the 1st point, just need to have a `None` entry in the list of energies *e.g.* `[None, 0.0, 1.0]`
 >- Individual points can be placed if this is a list with only one energy value (*e.g.* uncluttered diastereomeric TS for example, see examples)
